@@ -21,6 +21,7 @@ body.wrong {
   width: calc(100% - var(--margin-canvas ) * 2 );
   height: calc(100% - var(--margin-canvas ) * 2 );
   box-shadow: 2em 2em 2em;
+  cursor: none;
 }
 .target {
   position: absolute;
