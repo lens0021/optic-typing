@@ -11,7 +11,7 @@ body {
   margin: 0;
 }
 body.wrong {
-  background-color: #908080;
+  background-color: #c08080;
 }
 .canvas {
   background-color: white;
