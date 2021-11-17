@@ -33,7 +33,7 @@ body.wrong {
   text-align: center;
   line-height: var(--length-target);
 
-  border: 0.2rem solid orange;
+  border: 0.2em solid orange;
   border-radius: var(--length-target);
 
   font-size: 2em;
