@@ -8,5 +8,8 @@
   "private": true,
   "devDependencies": {
     "prettier": "^2.4.1"
+  },
+  "prettier": {
+    "singleQuote": true
   }
 }
