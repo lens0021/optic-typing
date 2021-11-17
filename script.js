@@ -21,16 +21,24 @@ const $canvas = document.querySelector('#canvas');
 const $target = document.querySelector('#target');
 const $caution = document.querySelector('#caution');
 const $checkArrows = document.querySelector('#check-arrows');
+const $checkHardcore = document.querySelector('#check-hardcore');
 
 let targetGroup = targetGroups.alphanumeric;
 let target = 'a';
 let fontSize = 2;
+const fontSizeMin = 0.7;
+const fontSizeMax = 18;
+let hardcore = false;
 
 function nextLetter(ok) {
   target = targetGroup[Math.floor(Math.random() * targetGroup.length)];
   if (ok !== null) {
-    fontSize = ok ? fontSize * 0.98 : fontSize * 1.01;
-    fontSize =  Math.min(Math.max(fontSize, 0.6), 18);
+    if (!hardcore) {
+      fontSize = ok ? fontSize * 0.98 : fontSize * 1.01;
+    } else {
+      fontSize = ok ? fontSize * 0.7 : fontSizeMax;
+    }
+    fontSize = Math.min(Math.max(fontSize, fontSizeMin), fontSizeMax);
     $body.classList.toggle('wrong', !ok);
     $canvas.classList.toggle('inverse');
   }
@@ -88,6 +96,10 @@ function main() {
     targetGroup =
       targetGroups[$checkArrows.checked ? 'arrows' : 'alphanumeric'];
     nextLetter(null);
+  });
+
+  $checkHardcore.addEventListener('change', () => {
+    hardcore = $checkHardcore.checked;
   });
 }
 
