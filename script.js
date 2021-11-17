@@ -1,20 +1,36 @@
 'use strict';
 
+const arrows = {
+  left: '←⇐',
+  up: '↑⇑',
+  right: '→⇒',
+  down: '↓⇓',
+};
+const targetGroups = {
+  alphanumeric: (
+    '0123456789' +
+    'abcdefghijklmnopqrstuvwxyz' +
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+  ).split(''),
+  arrows: ['←', '↑', '→', '↓'],
+};
+
 const $body = document.body;
 const $size = document.querySelector('#size');
 const $target = document.querySelector('#target');
 const $caution = document.querySelector('#caution');
-const letters = (
-  '0123456789' +
-  'abcdefghijklmnopqrstuvwxyz' +
-  'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-).split('');
+const $checkArrows = document.querySelector('#check-arrows');
+
+let targetGroup = targetGroups.alphanumeric;
 let target = 'a';
 let fontSize = 2;
 
 function nextLetter(ok) {
-  target = letters[Math.floor(Math.random() * letters.length)];
-  fontSize = ok ? fontSize * 0.9 : fontSize * 1.1;
+  target = targetGroup[Math.floor(Math.random() * targetGroup.length)];
+  if (ok !== null) {
+    fontSize = ok ? fontSize * 0.9 : fontSize * 1.1;
+    $body.classList.toggle('wrong', !ok);
+  }
 
   $size.innerHTML = ('' + fontSize).slice(0, 5);
 
@@ -23,18 +39,41 @@ function nextLetter(ok) {
   $target.style.top = 5 + Math.random() * 90 + '%';
   $target.style.left = 5 + Math.random() * 90 + '%';
 
-  $body.classList.toggle('wrong', !ok);
-
   console.log(`nextLetter with ${fontSize}em`);
 }
 
+function match(expected, actual) {
+  if (expected.toLowerCase() == actual.toLowerCase()) {
+    return true;
+  }
+  if (actual == 'arrowdown' && arrows['down'].indexOf(expected) >= 0) {
+    return true;
+  } else if (actual == 'arrowup' && arrows['up'].indexOf(expected) >= 0) {
+    return true;
+  } else if (actual == 'arrowleft' && arrows['left'].indexOf(expected) >= 0) {
+    return true;
+  } else if (actual == 'arrowright' && arrows['right'].indexOf(expected) >= 0) {
+    return true;
+  }
+  return false;
+}
+
 function main() {
-  document.addEventListener('keypress', (ev) => {
+  document.addEventListener('keydown', (ev) => {
+    if (['Alt', 'Control'].indexOf(ev.key) >= 0) {
+      return;
+    }
     if ($caution.parentNode) {
       $caution.parentNode.removeChild($caution);
     }
-    // console.log(`${ev.key} is pressed`);
-    nextLetter(ev.key.toLowerCase() == target.toLowerCase());
+    console.log(`${ev.key} is pressed`);
+    nextLetter(match(target.toLowerCase(), ev.key.toLowerCase()));
+  });
+
+  $checkArrows.addEventListener('change', () => {
+    targetGroup =
+      targetGroups[$checkArrows.checked ? 'arrows' : 'alphanumeric'];
+    nextLetter(null);
   });
 }
 

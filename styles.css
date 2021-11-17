@@ -14,12 +14,12 @@ body.wrong {
   background-color: #908080;
 }
 .canvas {
-  background-color: white;;
+  background-color: white;
   position: fixed;
   left: var(--margin-canvas);
   top: var(--margin-canvas);
-  width: calc(100% - var(--margin-canvas ) * 2 );
-  height: calc(100% - var(--margin-canvas ) * 2 );
+  width: calc(100% - var(--margin-canvas) * 2);
+  height: calc(100% - var(--margin-canvas) * 2);
   box-shadow: 2em 2em 2em;
   cursor: none;
 }
@@ -27,8 +27,8 @@ body.wrong {
   position: absolute;
   width: var(--length-target);
   height: var(--length-target);
-  margin-left: calc( -1 * var(--length-target) / 2);
-  margin-top: calc( -1 * var(--length-target) / 2);
+  margin-left: calc(-1 * var(--length-target) / 2);
+  margin-top: calc(-1 * var(--length-target) / 2);
 
   text-align: center;
   line-height: var(--length-target);
@@ -44,12 +44,18 @@ body.wrong {
   transition-duration: 100ms;
 }
 
+.check-arrows {
+  position: fixed;
+  top: 1em;
+  right: 1em;
+}
+
 .size {
   font-size: var(--font-size-largest);
   text-align: center;
   background-color: white;
   width: 5em;
-  margin-left: calc( 50% - 2.5em );
+  margin-left: calc(50% - 2.5em);
   box-shadow: inset 0.1em 0.1em 0.2em;
 }
 
