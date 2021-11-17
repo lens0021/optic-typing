@@ -1,0 +1,12 @@
+{
+  "name": "optic-typing",
+  "version": "0.1.0",
+  "main": "index.js",
+  "repository": "https://github.com/lens0021/optic-typing",
+  "author": "lens0021 <lorentz0021@gmail.com>",
+  "license": "AGPL3+",
+  "private": true,
+  "devDependencies": {
+    "prettier": "^2.4.1"
+  }
+}
