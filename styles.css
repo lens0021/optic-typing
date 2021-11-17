@@ -10,6 +10,9 @@ body {
   padding: 0;
   margin: 0;
 }
+body.wrong {
+  background-color: #908080;
+}
 .canvas {
   background-color: white;;
   position: fixed;
@@ -35,6 +38,9 @@ body {
   font-size: 2em;
   top: 50%;
   left: 50%;
+
+  transition-property: top left;
+  transition-duration: 100ms;
 }
 
 .size {
