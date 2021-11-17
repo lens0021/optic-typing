@@ -60,7 +60,18 @@ function match(expected, actual) {
 
 function main() {
   document.addEventListener('keydown', (ev) => {
-    if (['Alt', 'Control'].indexOf(ev.key) >= 0) {
+    if (
+      [
+        ' ',
+        'Alt',
+        'Backspace',
+        'Control',
+        'Delete',
+        'Escape',
+        'Shift',
+        'Tab',
+      ].indexOf(ev.key) >= 0
+    ) {
       return;
     }
     if ($caution.parentNode) {
