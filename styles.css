@@ -43,6 +43,10 @@ body.wrong {
   transition-property: top left;
   transition-duration: 100ms;
 }
+.canvas.inverse .target {
+  background-color: black;
+  color: white;
+}
 
 .check-arrows {
   position: fixed;

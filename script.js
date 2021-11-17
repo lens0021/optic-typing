@@ -17,6 +17,7 @@ const targetGroups = {
 
 const $body = document.body;
 const $size = document.querySelector('#size');
+const $canvas = document.querySelector('#canvas');
 const $target = document.querySelector('#target');
 const $caution = document.querySelector('#caution');
 const $checkArrows = document.querySelector('#check-arrows');
@@ -28,8 +29,10 @@ let fontSize = 2;
 function nextLetter(ok) {
   target = targetGroup[Math.floor(Math.random() * targetGroup.length)];
   if (ok !== null) {
-    fontSize = ok ? fontSize * 0.9 : fontSize * 1.1;
+    fontSize = ok ? fontSize * 0.98 : fontSize * 1.01;
+    fontSize =  Math.min(Math.max(fontSize, 0.6), 18);
     $body.classList.toggle('wrong', !ok);
+    $canvas.classList.toggle('inverse');
   }
 
   $size.innerHTML = ('' + fontSize).slice(0, 5);
