@@ -17,7 +17,7 @@
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "body{padding:0;margin:0;background-color:gray}body.wrong{background-color:#c08080}.container{position:fixed;left:3em;top:3em;right:3em;bottom:3em;box-shadow:2em 2em 2em;display:flex;flex-direction:column}.container>*{background-color:#fff}.container .canvas{cursor:none;flex-grow:1;position:relative}.container .canvas .target{position:absolute;width:0;height:0;display:flex;justify-content:center;align-items:center;word-break:keep-all;transition-property:box-shadow;animation:mark 10000ms ease-in}.canvas.inverse .container .canvas .target{background-color:#000;color:#fff}@keyframes mark{0%{box-shadow:orange 0 0 1em 1em}100%{box-shadow:orange 0 0 0 0}}.container .caution{font-size:5em;text-align:center}.container #input{font-size:3em;text-align:center;padding-bottom:2rem}.container #input,.container #input:focus,.container #input:focus-visible{border:none;outline:none}.checks{position:fixed;top:1em;right:1em}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "body{padding:0;margin:0;background-color:gray}body.wrong{background-color:#c08080}.container{position:fixed;left:3em;top:3em;right:3em;bottom:3em;box-shadow:2em 2em 2em;display:flex;flex-direction:column}.container>*{background-color:#fff}.container .canvas{cursor:none;flex-grow:1;position:relative}.container .canvas .target{position:absolute;width:0;height:0;display:flex;justify-content:center;align-items:center;word-break:keep-all;transition-property:box-shadow;animation:mark 10000ms ease-in}.canvas.inverse .container .canvas .target{background-color:#000;color:#fff}@keyframes mark{0%{box-shadow:orange 0 0 0 0}100%{box-shadow:#ff0 0 0 1em 1em}}.container .caution{font-size:5em;text-align:center}.container #input{font-size:3em;text-align:center;padding-bottom:2rem}.container #input,.container #input:focus,.container #input:focus-visible{border:none;outline:none}.checks{position:fixed;top:1em;right:1em}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1112,11 +1112,11 @@ class OpticTyping {
         if (Object.keys(this.targets).length < this.maxTargetNum) {
             const target = this.targetFactory.newTarget(() => {
                 delete this.targets[target.message];
-                this.targetFactory.multiplyToFontSize(0.98);
+                this.targetFactory.multiplyToFontSize(0.95);
                 this.$body.classList.toggle('wrong', false);
             }, () => {
                 delete this.targets[target.message];
-                this.targetFactory.multiplyToFontSize(1.01);
+                this.targetFactory.multiplyToFontSize(1.02);
                 this.$body.classList.toggle('wrong', true);
             });
             this.targets[target.message] = target;
@@ -1126,11 +1126,6 @@ class OpticTyping {
             this.addTargetRepeatedly();
         }, this.delay);
     }
-    // private nextLetter(ok: boolean | null) {
-    //   if (ok !== null) {
-    //     this.$canvas.classList.toggle('inverse');
-    //   }
-    // }
     main() {
         this.$canvas.addEventListener('click', (ev) => {
             this.$input.focus();

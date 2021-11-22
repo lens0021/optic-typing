@@ -25,12 +25,12 @@ export class OpticTyping {
       const target = this.targetFactory.newTarget(
         () => {
           delete this.targets[target.message];
-          this.targetFactory.multiplyToFontSize(0.98);
+          this.targetFactory.multiplyToFontSize(0.95);
           this.$body.classList.toggle('wrong', false);
         },
         () => {
           delete this.targets[target.message];
-          this.targetFactory.multiplyToFontSize(1.01);
+          this.targetFactory.multiplyToFontSize(1.02);
           this.$body.classList.toggle('wrong', true);
         }
       );

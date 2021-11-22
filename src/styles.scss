@@ -52,10 +52,10 @@ body {
 
       @keyframes mark {
         0% {
-          box-shadow: orange 0 0 1em 1em;
+          box-shadow: orange 0 0 0 0;
         }
         100% {
-          box-shadow: orange 0 0 0 0;
+          box-shadow: yellow 0 0 1em 1em;
         }
       }
     }
