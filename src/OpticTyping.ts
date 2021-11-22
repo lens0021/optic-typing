@@ -11,7 +11,6 @@ export class OpticTyping {
   public constructor(
     private $body: HTMLElement,
     private $canvas: HTMLElement,
-    private $caution: HTMLElement,
     private $input: HTMLInputElement,
     private $checkKorean: HTMLInputElement
   ) {
@@ -53,9 +52,6 @@ export class OpticTyping {
     document.addEventListener('keydown', (ev) => {
       if (ev.key == 'Enter') {
         this.$input.value = '';
-      }
-      if (this.$caution.parentNode) {
-        this.$caution.parentNode.removeChild(this.$caution);
       }
     });
 

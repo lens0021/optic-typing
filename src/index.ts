@@ -5,20 +5,13 @@ const Cookies: any = require('js-cookie');
 (() => {
   const $body = document.body;
   const $canvas = <HTMLElement>document.querySelector('#canvas');
-  const $caution = <HTMLElement>document.querySelector('#caution');
   const $input = <HTMLInputElement>document.querySelector('#input');
   const $checkKorean = <HTMLInputElement>(
     document.querySelector('#check-korean')
   );
-  if ($body && $canvas && $caution && $input && $checkKorean) {
+  if ($body && $canvas && $input && $checkKorean) {
     $input.focus();
-    const opticTyping = new OpticTyping(
-      $body,
-      $canvas,
-      $caution,
-      $input,
-      $checkKorean
-    );
+    const opticTyping = new OpticTyping($body, $canvas, $input, $checkKorean);
 
     if (Cookies.get('korean') == '1') {
       $checkKorean.checked = true;
