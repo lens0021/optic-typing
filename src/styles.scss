@@ -43,19 +43,49 @@ body {
 
       word-break: keep-all;
       transition-property: box-shadow;
-      animation: mark $life ease-in;
 
-      .canvas.inverse & {
-        background-color: black;
-        color: white;
-      }
+      .text {
+        $bar-width: 0.1em;
 
-      @keyframes mark {
-        0% {
-          box-shadow: orange 0 0 0 0;
+        width: fit-content;
+        height: fit-content;
+        background-color: white;
+        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+          0 10px 10px rgba(0, 0, 0, 0.22);
+        position: relative;
+        padding-bottom: $bar-width;
+        animation: appear 200ms;
+
+        @keyframes appear {
+          0% {
+            opacity: 0;
+            transform: scaleY(0);
+          }
+          100% {
+            opacity: 100%;
+            transform: scaleY(100%);
+          }
         }
-        100% {
-          box-shadow: yellow 0 0 1em 1em;
+
+        &:after {
+          content: '';
+          border-bottom: $bar-width solid transparent;
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          width: 100%;
+          animation: time $life linear;
+        }
+
+        @keyframes time {
+          0% {
+            border-color: coral;
+            width: 100%;
+          }
+          100% {
+            border-color: red;
+            width: 0%;
+          }
         }
       }
     }

@@ -14,10 +14,15 @@ export class Target {
 
     this.$element = document.createElement('div');
     this.$element.classList.add('target');
-    this.$element.innerHTML = this._message;
     this.$element.style.fontSize = this.fontSize + 'em';
     this.$element.style.top = 5 + Math.random() * 90 + '%';
     this.$element.style.left = 5 + Math.random() * 90 + '%';
+
+    const $text = document.createElement('span');
+    $text.classList.add('text');
+    $text.innerHTML = this._message;
+
+    this.$element.append($text);
 
     setTimeout(() => {
       if (this.destroy()) {
