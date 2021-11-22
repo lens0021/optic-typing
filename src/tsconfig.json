@@ -2,6 +2,7 @@
   "compilerOptions": {
     "outDir": "./dist/",
     "strict": true,
+    "moduleResolution": "Node",
     "module": "es6",
     "target": "es6",
     "allowJs": true,
