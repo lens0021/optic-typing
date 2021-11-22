@@ -24,14 +24,7 @@ export class TargetFactory {
   }
 
   public newTarget(onHit: () => void, onMiss: () => void) {
-    const word = this._korean
-      ? Math.random() > 0.5
-        ? PhraseGen.getAdjective(
-            suffixes[Math.floor(Math.random() * suffixes.length)]
-          )
-        : PhraseGen.getNoun()
-      : this.randomWords();
-    return new Target(word, this._fontSize, onHit, onMiss);
+    return new Target(this.randomWords(), this._fontSize, onHit, onMiss);
   }
 
   public set korean(korean: boolean) {
@@ -39,6 +32,15 @@ export class TargetFactory {
   }
 
   private randomWords() {
+    if (this._korean) {
+      if (Math.random() > 0.5) {
+        return PhraseGen.getAdjective(
+          suffixes[Math.floor(Math.random() * suffixes.length)]
+        );
+      } else {
+        return PhraseGen.getNoun();
+      }
+    }
     const word = RandomWords();
     return word.charAt(0).toUpperCase() + word.slice(1);
   }

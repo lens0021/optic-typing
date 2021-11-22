@@ -1067,17 +1067,20 @@ class TargetFactory {
         return this._fontSize;
     }
     newTarget(onHit, onMiss) {
-        const word = this._korean
-            ? Math.random() > 0.5
-                ? PhraseGen.getAdjective(suffixes[Math.floor(Math.random() * suffixes.length)])
-                : PhraseGen.getNoun()
-            : this.randomWords();
-        return new Target(word, this._fontSize, onHit, onMiss);
+        return new Target(this.randomWords(), this._fontSize, onHit, onMiss);
     }
     set korean(korean) {
         this._korean = korean;
     }
     randomWords() {
+        if (this._korean) {
+            if (Math.random() > 0.5) {
+                return PhraseGen.getAdjective(suffixes[Math.floor(Math.random() * suffixes.length)]);
+            }
+            else {
+                return PhraseGen.getNoun();
+            }
+        }
         const word = RandomWords();
         return word.charAt(0).toUpperCase() + word.slice(1);
     }
@@ -1107,8 +1110,6 @@ class OpticTyping {
         this.addTargetRepeatedly();
     }
     addTargetRepeatedly() {
-        // console.log(Object.keys(this.targets).length);
-        console.log(this.targetFactory.fontSize);
         if (Object.keys(this.targets).length < this.maxTargetNum) {
             const target = this.targetFactory.newTarget(() => {
                 delete this.targets[target.message];
@@ -1148,7 +1149,7 @@ class OpticTyping {
             }
         });
         this.$checkKorean.addEventListener('change', (ev) => {
-            this.targetFactory.korean = !!this.$checkKorean.value;
+            this.targetFactory.korean = this.$checkKorean.checked;
         });
     }
 }

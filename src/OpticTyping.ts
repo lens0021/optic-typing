@@ -19,8 +19,6 @@ export class OpticTyping {
   }
 
   private addTargetRepeatedly() {
-    // console.log(Object.keys(this.targets).length);
-    console.log(this.targetFactory.fontSize);
     if (Object.keys(this.targets).length < this.maxTargetNum) {
       const target = this.targetFactory.newTarget(
         () => {
@@ -70,7 +68,7 @@ export class OpticTyping {
     });
 
     this.$checkKorean.addEventListener('change', (ev) => {
-      this.targetFactory.korean = !!this.$checkKorean.value;
+      this.targetFactory.korean = this.$checkKorean.checked;
     });
   }
 }
