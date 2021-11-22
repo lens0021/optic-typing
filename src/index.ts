@@ -1,5 +1,6 @@
 import { OpticTyping } from './OpticTyping';
 import './styles.scss';
+const Cookies: any = require('js-cookie');
 
 (() => {
   const $body = document.body;
@@ -11,6 +12,19 @@ import './styles.scss';
   );
   if ($body && $canvas && $caution && $input && $checkKorean) {
     $input.focus();
-    new OpticTyping($body, $canvas, $caution, $input, $checkKorean).main();
+    const opticTyping = new OpticTyping(
+      $body,
+      $canvas,
+      $caution,
+      $input,
+      $checkKorean
+    );
+
+    if (Cookies.get('korean')) {
+      $checkKorean.checked = true;
+      opticTyping.korean = true;
+    }
+
+    opticTyping.main();
   }
 })();

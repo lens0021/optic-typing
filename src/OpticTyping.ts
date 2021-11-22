@@ -1,5 +1,6 @@
 import { Target } from './Target';
 import { TargetFactory } from './TargetFactory';
+const Cookies: any = require('js-cookie');
 
 export class OpticTyping {
   private targetFactory: TargetFactory;
@@ -15,7 +16,6 @@ export class OpticTyping {
     private $checkKorean: HTMLInputElement
   ) {
     this.targetFactory = new TargetFactory();
-    this.addTargetRepeatedly();
   }
 
   private addTargetRepeatedly() {
@@ -39,6 +39,10 @@ export class OpticTyping {
     setTimeout(() => {
       this.addTargetRepeatedly();
     }, this.delay);
+  }
+
+  public set korean(korean: boolean) {
+    this.targetFactory.korean = korean;
   }
 
   public main() {
@@ -68,7 +72,12 @@ export class OpticTyping {
     });
 
     this.$checkKorean.addEventListener('change', (ev) => {
-      this.targetFactory.korean = this.$checkKorean.checked;
+      const checked = this.$checkKorean.checked;
+      this.targetFactory.korean = checked;
+      Cookies.set('korean', checked ? '1' : '0');
+      this.$input.focus();
     });
+
+    this.addTargetRepeatedly();
   }
 }
