@@ -20,7 +20,7 @@ const Cookies: any = require('js-cookie');
       $checkKorean
     );
 
-    if (Cookies.get('korean')) {
+    if (Cookies.get('korean') == '1') {
       $checkKorean.checked = true;
       opticTyping.korean = true;
     }
