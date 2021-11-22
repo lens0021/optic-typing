@@ -1,18 +1,7 @@
 import { Target } from './Target';
 const RandomWords = require('random-words');
-const PhraseGen = new (require('korean-random-words'))();
-const suffixes = [
-  '하고',
-  '하니',
-  '하다',
-  '하면',
-  '하여',
-  '하지만',
-  '한데',
-  '해도',
-  '해서',
-];
-
+import {koreanWords} from './KoreanWords';
+console.log(koreanWords);
 export class TargetFactory {
   private fontSizeMin = 0.7;
   private fontSizeMax = 18;
@@ -33,13 +22,7 @@ export class TargetFactory {
 
   private randomWords() {
     if (this._korean) {
-      if (Math.random() > 0.5) {
-        return PhraseGen.getAdjective(
-          suffixes[Math.floor(Math.random() * suffixes.length)]
-        );
-      } else {
-        return PhraseGen.getNoun();
-      }
+      return koreanWords[Math.floor(Math.random() * koreanWords.length)];
     }
     const word = RandomWords();
     return word.charAt(0).toUpperCase() + word.slice(1);

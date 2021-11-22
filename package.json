@@ -26,7 +26,6 @@
     "singleQuote": true
   },
   "dependencies": {
-    "korean-random-words": "^1.0.3",
     "random-words": "^1.1.1"
   }
 }
