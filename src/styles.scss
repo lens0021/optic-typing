@@ -1,0 +1,74 @@
+$margin-canvas: 10%;
+$length-target: 15rem;
+$font-size-largest: 5em;
+$font-size-largest: 5em;
+
+body {
+  padding: 0;
+  margin: 0;
+
+  background-color: gray;
+  &.wrong {
+    background-color: #c08080;
+  }
+}
+.canvas {
+  background-color: white;
+  position: fixed;
+  left: $margin-canvas;
+  top: $margin-canvas;
+  width: calc(100% - $margin-canvas * 2);
+  height: calc(100% - $margin-canvas * 2);
+  box-shadow: 2em 2em 2em;
+  cursor: none;
+}
+.target {
+  position: absolute;
+  width: $length-target;
+  height: $length-target;
+  margin-left: calc(-1 * $length-target / 2);
+  margin-top: calc(-1 * $length-target / 2);
+
+  text-align: center;
+  line-height: $length-target;
+
+  border: 0.2em solid orange;
+  border-radius: $length-target;
+
+  font-size: 2em;
+  top: 50%;
+  left: 50%;
+
+  transition-property: top left;
+  transition-duration: 100ms;
+
+  .canvas.inverse & {
+    background-color: black;
+    color: white;
+  }
+}
+
+.checks {
+  position: fixed;
+  top: 1em;
+  right: 1em;
+}
+
+.size {
+  font-size: $font-size-largest;
+  text-align: center;
+  background-color: white;
+  width: 5em;
+  margin-left: calc(50% - 2.5em);
+  box-shadow: inset 0.1em 0.1em 0.2em;
+}
+
+.caution {
+  font-size: $font-size-largest;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin-bottom: 0.2em;
+}
