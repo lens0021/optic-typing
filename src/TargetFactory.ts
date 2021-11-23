@@ -40,4 +40,10 @@ export class TargetFactory {
   public maximizeFontSize() {
     this._fontSize = this.fontSizeMax;
   }
+
+  public get health() {
+    const maxRate = this.fontSizeMax - this.fontSizeMin;
+    const current = this._fontSize - this.fontSizeMin;
+    return current / maxRate;
+  }
 }

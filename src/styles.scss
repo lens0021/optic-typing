@@ -1,11 +1,14 @@
 $life: 10000ms;
 $font-size-largest: 5em;
+$shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+0 10px 10px rgba(0, 0, 0, 0.22);
 
 body {
   padding: 0;
   margin: 0;
 
   background-color: gray;
+  transition: 1s background-color;
   &.wrong {
     background-color: #c08080;
   }
@@ -18,16 +21,13 @@ body {
   top: $margin-canvas;
   right: $margin-canvas;
   bottom: $margin-canvas;
-  box-shadow: 2em 2em 2em;
+  box-shadow: $shadow;
 
   display: flex;
   flex-direction: column;
 
-  > * {
-    background-color: white;
-  }
-
   .canvas {
+    background-color: white;
     cursor: none;
     flex-grow: 1;
     position: relative;
@@ -42,7 +42,6 @@ body {
       align-items: center;
 
       word-break: keep-all;
-      transition-property: box-shadow;
 
       .text {
         $bar-width: 0.1em;
@@ -50,8 +49,7 @@ body {
         width: fit-content;
         height: fit-content;
         background-color: white;
-        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
-          0 10px 10px rgba(0, 0, 0, 0.22);
+        box-shadow: $shadow;
         position: relative;
         padding-bottom: $bar-width;
         animation: appear 200ms;
@@ -101,6 +99,21 @@ body {
     &:focus-visible {
       border: none;
       outline: none;
+    }
+  }
+
+  .health {
+    position: relative;
+    height: 1em;
+
+    .bar {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+      transition: width 1s;
+      background-color: black;
     }
   }
 }

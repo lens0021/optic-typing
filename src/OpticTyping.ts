@@ -12,6 +12,7 @@ export class OpticTyping {
     private $body: HTMLElement,
     private $canvas: HTMLElement,
     private $input: HTMLInputElement,
+    private $health: HTMLElement,
     private $checkKorean: HTMLInputElement
   ) {
     this.targetFactory = new TargetFactory();
@@ -24,11 +25,13 @@ export class OpticTyping {
           delete this.targets[target.message];
           this.targetFactory.multiplyToFontSize(0.95);
           this.$body.classList.toggle('wrong', false);
+          this.$health.style.width = `${this.targetFactory.health * 100}%`;
         },
         () => {
           delete this.targets[target.message];
           this.targetFactory.multiplyToFontSize(1.02);
           this.$body.classList.toggle('wrong', true);
+          this.$health.style.width = `${this.targetFactory.health * 100}%`;
         }
       );
       this.targets[target.message] = target;
