@@ -6,8 +6,8 @@ body {
   padding: 0;
   margin: 0;
 
-  transition-property: background-color;
-  transition-duration: 1s;
+  background-color: gray;
+  transition: background-color 1s;
   &.wrong {
     background-color: red;
     transition-duration: 60s;
