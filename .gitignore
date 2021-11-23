@@ -1,1 +1,3 @@
 node_modules
+cli/new-words.js
+src/KoreanWords.js
