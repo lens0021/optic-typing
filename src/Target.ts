@@ -14,7 +14,7 @@ export class Target {
 
     this.$element = document.createElement('div');
     this.$element.classList.add('target');
-    this.$element.style.fontSize = this.fontSize + 'em';
+    this.$element.style.fontSize = this.fontSize + 'mm';
     this.$element.style.top = 5 + Math.random() * 90 + '%';
     this.$element.style.left = 5 + Math.random() * 90 + '%';
 

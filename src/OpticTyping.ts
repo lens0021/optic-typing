@@ -77,6 +77,7 @@ export class OpticTyping {
       this.$input.focus();
     });
 
+    this.$health.style.width = `${this.targetFactory.health * 100}%`;
     this.addTargetRepeatedly();
   }
 }
