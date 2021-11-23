@@ -3,16 +3,24 @@ import { TargetFactory } from './TargetFactory';
 const Cookies: any = require('js-cookie');
 
 export class OpticTyping {
-  private targetFactory: TargetFactory;
-  private targets: { [key: string]: Target } = {};
   private readonly delay = 500;
   private readonly maxTargetNum = 10;
+  private readonly countToStart = 40;
+
+  private targetFactory: TargetFactory;
+  private targets: { [key: string]: Target } = {};
+  private countIsStarted = false;
+  private stackedHealth = 0;
+  private stackedFontSize = 0;
+  private hitCount = 0;
 
   public constructor(
     private $body: HTMLElement,
     private $canvas: HTMLElement,
     private $input: HTMLInputElement,
     private $health: HTMLElement,
+    private $healthAverage: HTMLElement,
+    private $healthText: HTMLElement,
     private $checkKorean: HTMLInputElement
   ) {
     this.targetFactory = new TargetFactory();
@@ -22,16 +30,36 @@ export class OpticTyping {
     if (Object.keys(this.targets).length < this.maxTargetNum) {
       const target = this.targetFactory.newTarget(
         () => {
+          this.hitCount++;
+          if (!this.countIsStarted) {
+            if (this.hitCount > this.countToStart) {
+              this.countIsStarted = true;
+              this.hitCount = 0;
+            }
+          } else {
+            this.stackedHealth += this.targetFactory.health;
+            this.stackedFontSize += this.targetFactory.fontSize;
+            this.$healthAverage.style.width = `${
+              100 - (this.stackedHealth / this.hitCount) * 100
+            }%`;
+            let num = this.stackedFontSize / this.hitCount;
+            this.$healthText.innerHTML = `${num.toFixed(2)}mm`;
+          }
+
           delete this.targets[target.message];
           this.targetFactory.multiplyToFontSize(0.95);
           this.$body.classList.toggle('wrong', false);
-          this.$health.style.width = `${this.targetFactory.health * 100}%`;
+          this.$health.style.width = `${
+            100 - this.targetFactory.health * 100
+          }%`;
         },
         () => {
           delete this.targets[target.message];
           this.targetFactory.multiplyToFontSize(1.02);
           this.$body.classList.toggle('wrong', true);
-          this.$health.style.width = `${this.targetFactory.health * 100}%`;
+          this.$health.style.width = `${
+            100 - this.targetFactory.health * 100
+          }%`;
         }
       );
       this.targets[target.message] = target;
@@ -77,7 +105,7 @@ export class OpticTyping {
       this.$input.focus();
     });
 
-    this.$health.style.width = `${this.targetFactory.health * 100}%`;
+    this.$health.style.width = `${100 - this.targetFactory.health * 100}%`;
     this.addTargetRepeatedly();
   }
 }

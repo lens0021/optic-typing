@@ -7,16 +7,28 @@ const Cookies: any = require('js-cookie');
   const $canvas = <HTMLElement>document.querySelector('#canvas');
   const $input = <HTMLInputElement>document.querySelector('#input');
   const $health = <HTMLElement>document.querySelector('#health');
+  const $healthAverage = <HTMLElement>document.querySelector('#health-average');
+  const $healthText = <HTMLElement>document.querySelector('#health-text');
   const $checkKorean = <HTMLInputElement>(
     document.querySelector('#check-korean')
   );
-  if ($body && $canvas && $input && $health && $checkKorean) {
+  if (
+    $body &&
+    $canvas &&
+    $input &&
+    $health &&
+    $healthAverage &&
+    $healthText &&
+    $checkKorean
+  ) {
     $input.focus();
     const opticTyping = new OpticTyping(
       $body,
       $canvas,
       $input,
       $health,
+      $healthAverage,
+      $healthText,
       $checkKorean
     );
 

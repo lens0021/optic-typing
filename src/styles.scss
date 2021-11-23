@@ -111,14 +111,41 @@ body {
     position: relative;
     height: 1em;
 
-    .bar {
+    .bar,
+    .average {
       position: absolute;
       right: 0;
       top: 0;
       bottom: 0;
       width: 100%;
       transition: width 1s;
+    }
+
+    .bar {
       background-color: black;
+    }
+
+    .average {
+      border-left: 0.2em red solid;
+      box-sizing: border-box;
+    }
+
+    .health-text {
+      width: 100%;
+      position: absolute;
+      text-align: center;
+      font-size: $font-size-largest;
+      bottom: 0.1em;
+
+      transition-property: transform, opacity;
+      transition-duration: 100ms;
+      transform-origin: 0 100%;
+      transform: scaleY(0);
+      opacity: 0;
+    }
+    &:hover .health-text {
+      transform: scaleY(1);
+      opacity: 1;
     }
   }
 }
