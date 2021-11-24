@@ -9,7 +9,7 @@
   "scripts": {
     "test": "prettier . --check",
     "fix": "prettier . --write",
-    "new-words": "tsc cli/new-words.ts && node cli/new-words.js"
+    "new-words": "tsc cli/new-words.ts && node cli/new-words.js && rm cli/new-words.js"
   },
   "devDependencies": {
     "@types/node": "^16.11.9",
