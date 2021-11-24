@@ -2,17 +2,17 @@ import { Target } from './Target';
 import { TargetFactory } from './TargetFactory';
 const Cookies: any = require('js-cookie');
 
+const average = (arr: number[]) => arr.reduce((a, b) => a + b, 0) / arr.length;
+
 export class OpticTyping {
   private readonly delay = 500;
   private readonly maxTargetNum = 10;
-  private readonly countToStart = 40;
+  private readonly capacityQueue = 30;
 
   private targetFactory: TargetFactory;
   private targets: { [key: string]: Target } = {};
-  private countIsStarted = false;
-  private stackedHealth = 0;
-  private stackedFontSize = 0;
-  private hitCount = 0;
+  private queueHealth: number[] = [];
+  private queueFontSize: number[] = [];
 
   public constructor(
     private $body: HTMLElement,
@@ -30,22 +30,20 @@ export class OpticTyping {
     if (Object.keys(this.targets).length < this.maxTargetNum) {
       const target = this.targetFactory.newTarget(
         () => {
-          this.hitCount++;
-          if (!this.countIsStarted) {
-            if (this.hitCount > this.countToStart) {
-              this.countIsStarted = true;
-              this.hitCount = 0;
-            }
-          } else {
-            this.stackedHealth += this.targetFactory.health;
-            this.stackedFontSize += this.targetFactory.fontSize;
-            this.$healthAverage.style.width = `${
-              100 - (this.stackedHealth / this.hitCount) * 100
-            }%`;
-            let num = this.stackedFontSize / this.hitCount;
-            this.$healthText.innerHTML = `${num.toFixed(2)}mm`;
+          // Statistics
+          if (this.queueHealth.length > this.capacityQueue) {
+            this.queueHealth.shift();
+            this.queueFontSize.shift();
           }
+          this.queueHealth.push(this.targetFactory.health);
+          this.queueFontSize.push(this.targetFactory.fontSize);
+          this.$healthAverage.style.width = `${
+            100 - average(this.queueHealth) * 100
+          }%`;
+          this.$healthText.innerHTML =
+            average(this.queueFontSize).toFixed(2) + 'mm';
 
+          // Adjust the size of the target.
           delete this.targets[target.message];
           this.targetFactory.multiplyToFontSize(0.95);
           this.$body.classList.toggle('wrong', false);
