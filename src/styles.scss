@@ -108,8 +108,9 @@ body {
   }
 
   .health {
+    $height: 2rem;
     position: relative;
-    height: 1em;
+    height: $height;
 
     .bar,
     .average {
@@ -133,9 +134,9 @@ body {
     .health-text {
       width: 100%;
       position: absolute;
-      text-align: center;
+      text-align: right;
       font-size: $font-size-largest;
-      bottom: 0.1em;
+      bottom: $height;
 
       transition-property: transform, opacity;
       transition-duration: 100ms;
