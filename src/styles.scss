@@ -1,5 +1,6 @@
 $life: 10000ms;
 $font-size-largest: 5em;
+$bar-height: 2rem;
 $shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 
 body {
@@ -26,11 +27,49 @@ body {
   display: flex;
   flex-direction: column;
 
-  .canvas {
+  .watch {
+    height: $bar-height;
+    animation: infinite linear 60s watch;
     background-color: white;
+
+    @keyframes watch {
+      from {
+        width: 0%;
+      }
+      to {
+        width: 100%;
+      }
+    }
+  }
+
+  .canvas {
+    animation: blink 4s linear infinite;
     cursor: none;
     flex-grow: 1;
     position: relative;
+
+    @keyframes blink {
+      0%,
+      98%,
+      100% {
+        background: white;
+      }
+      99% {
+        background: black;
+      }
+    }
+
+    &:before {
+      content: 'Blink!';
+      position: absolute;
+      top: 50%;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      font-size: $font-size-largest;
+      text-align: center;
+      color: white;
+    }
 
     .target {
       position: absolute;
@@ -55,11 +94,11 @@ body {
         animation: appear 200ms;
 
         @keyframes appear {
-          0% {
+          from {
             opacity: 0;
             transform: scaleY(0);
           }
-          100% {
+          to {
             opacity: 100%;
             transform: scaleY(100%);
           }
@@ -95,6 +134,7 @@ body {
 
     .checkpoint {
       font-size: 3em;
+      left: 0.1em;
     }
   }
 
@@ -112,9 +152,8 @@ body {
   }
 
   .health {
-    $height: 2rem;
     position: relative;
-    height: $height;
+    height: $bar-height;
 
     .bar,
     .average {
@@ -140,7 +179,7 @@ body {
       position: absolute;
       text-align: right;
       font-size: $font-size-largest;
-      bottom: $height;
+      bottom: $bar-height;
 
       transition-property: transform, opacity;
       transition-duration: 100ms;

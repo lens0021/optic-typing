@@ -1,7 +1,25 @@
+import { arrayBuffer } from 'stream/consumers';
 import { OpticTyping } from './OpticTyping';
 import './styles.scss';
 const Cookies: any = require('js-cookie');
 const tenMinutes = 1000 * 60 * 10;
+
+function humanReadableTime(ms: number): string {
+  let h, m, s;
+  s = Math.floor(ms / 1000);
+  m = Math.floor(s / 60);
+  s = s % 60;
+  h = Math.floor(m / 60);
+  m = m % 60;
+  h = h % 24;
+  return [
+    h ? h + ' hour' + (h == 1 ? '' : 's') : '',
+    m ? m + ' minute' + (m == 1 ? '' : 's') : '',
+    s ? s + ' second' + (s == 1 ? '' : 's') : '',
+  ]
+    .filter(Boolean)
+    .join(', ');
+}
 
 (() => {
   const $body = document.body;
@@ -39,12 +57,14 @@ const tenMinutes = 1000 * 60 * 10;
     }
 
     opticTyping.main();
-    let message = "You've been playing this for 10 minutes.";
+    const timeStart = new Date();
     const startCheckpoint = () => {
       const $checkpoint = document.createElement('div');
       $checkpoint.classList.add('checkpoint');
-      $checkpoint.innerHTML = message;
-      message = "You've been playing this for 10 minutes since the last notification.";
+      const timeNow = new Date();
+      $checkpoint.innerHTML = humanReadableTime(
+        timeNow.getTime() - timeStart.getTime()
+      );
       $canvas.append($checkpoint);
       setTimeout(() => {
         $canvas.removeChild($checkpoint);
