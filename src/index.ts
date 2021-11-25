@@ -1,7 +1,7 @@
 import { OpticTyping } from './OpticTyping';
 import './styles.scss';
 const Cookies: any = require('js-cookie');
-const tenMinutes = 1000 * 60;
+const minute = 1000 * 60;
 
 function humanReadableTime(ms: number): string {
   let h, m, s;
@@ -61,16 +61,15 @@ function humanReadableTime(ms: number): string {
       const $checkpoint = document.createElement('div');
       $checkpoint.classList.add('checkpoint');
       const timeNow = new Date();
-      $checkpoint.innerHTML = humanReadableTime(
-        timeNow.getTime() - timeStart.getTime()
-      );
+      const t = humanReadableTime(timeNow.getTime() - timeStart.getTime());
+      $checkpoint.innerHTML = `Your playing time is: ${t}`;
       $canvas.append($checkpoint);
       setTimeout(() => {
         $canvas.removeChild($checkpoint);
       }, 5000);
-      setTimeout(startCheckpoint, tenMinutes);
+      setTimeout(startCheckpoint, minute);
     };
 
-    setTimeout(startCheckpoint, tenMinutes);
+    setTimeout(startCheckpoint, minute);
   }
 })();
