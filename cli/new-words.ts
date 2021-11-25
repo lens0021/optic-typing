@@ -28,7 +28,7 @@ for (let word of newWords) {
 newWords = newWords.filter(Boolean);
 // Limit the length
 newWords = newWords.filter((word: string) => {
-  return word.length < 6;
+  return word.length > 1 && word.length < 6;
 });
 
 // Remove duplicates
