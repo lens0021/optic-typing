@@ -1,8 +1,7 @@
-import { arrayBuffer } from 'stream/consumers';
 import { OpticTyping } from './OpticTyping';
 import './styles.scss';
 const Cookies: any = require('js-cookie');
-const tenMinutes = 1000 * 60 * 10;
+const tenMinutes = 1000 * 60;
 
 function humanReadableTime(ms: number): string {
   let h, m, s;
