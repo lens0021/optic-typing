@@ -1,0 +1,60 @@
+.target {
+  position: absolute;
+  width: 0;
+  height: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  word-break: keep-all;
+
+  .text {
+    $bar-width: 0.1em;
+
+    width: fit-content;
+    height: fit-content;
+    background-color: white;
+    box-shadow: $shadow;
+    position: relative;
+    padding: 0 0.1em $bar-width 0.1em;
+    animation: appear 200ms;
+
+    @keyframes appear {
+      from {
+        opacity: 0;
+        transform: scaleY(0);
+      }
+      to {
+        opacity: 100%;
+        transform: scaleY(100%);
+      }
+    }
+
+    &:after {
+      content: '';
+      border-bottom: $bar-width solid transparent;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      animation: time $life linear;
+    }
+
+    @keyframes time {
+      0% {
+        border-color: greenyellow;
+        width: 100%;
+      }
+      100% {
+        border-color: red;
+        width: 0%;
+      }
+    }
+  }
+
+  &.inverse .text {
+    background-color: black;
+    color: white;
+  }
+}

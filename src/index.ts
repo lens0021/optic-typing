@@ -1,5 +1,5 @@
 import { OpticTyping } from './OpticTyping';
-import './styles.scss';
+import './styles/styles.scss';
 const Cookies: any = require('js-cookie');
 const minute = 1000 * 60;
 
@@ -22,14 +22,18 @@ function humanReadableTime(ms: number): string {
 
 (() => {
   const $body = document.body;
-  const $canvas = <HTMLElement>document.querySelector('#canvas');
+  const $canvas = <HTMLDivElement>document.querySelector('#canvas');
   const $input = <HTMLInputElement>document.querySelector('#input');
-  const $health = <HTMLElement>document.querySelector('#health');
-  const $healthAverage = <HTMLElement>document.querySelector('#health-average');
-  const $healthText = <HTMLElement>document.querySelector('#health-text');
+  const $health = <HTMLDivElement>document.querySelector('#health');
+  const $healthAverage = <HTMLDivElement>(
+    document.querySelector('#health-average')
+  );
+  const $healthText = <HTMLDivElement>document.querySelector('#health-text');
   const $checkKorean = <HTMLInputElement>(
     document.querySelector('#check-korean')
   );
+
+  const $notification = <HTMLDivElement>document.querySelector('#notification');
   if (
     $body &&
     $canvas &&
@@ -37,7 +41,8 @@ function humanReadableTime(ms: number): string {
     $health &&
     $healthAverage &&
     $healthText &&
-    $checkKorean
+    $checkKorean &&
+    $notification
   ) {
     $input.focus();
     const opticTyping = new OpticTyping(
@@ -56,16 +61,15 @@ function humanReadableTime(ms: number): string {
     }
 
     opticTyping.main();
+
     const timeStart = new Date();
     const startCheckpoint = () => {
-      const $checkpoint = document.createElement('div');
-      $checkpoint.classList.add('checkpoint');
+      $notification.classList.remove('hidden');
       const timeNow = new Date();
       const t = humanReadableTime(timeNow.getTime() - timeStart.getTime());
-      $checkpoint.innerHTML = `Your playing time is: ${t}`;
-      $canvas.append($checkpoint);
+      $notification.innerHTML = `Your playing time is: ${t}`;
       setTimeout(() => {
-        $canvas.removeChild($checkpoint);
+        $notification.classList.add('hidden');
       }, 5000);
       setTimeout(startCheckpoint, minute);
     };

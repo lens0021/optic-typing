@@ -1,0 +1,20 @@
+body {
+  padding: 0;
+  margin: 0;
+
+  // Change the background
+  background-color: gray;
+  transition: background-color 1s;
+  &.wrong {
+    background-color: red;
+    transition-duration: 60s;
+  }
+
+  .checks {
+    position: fixed;
+    top: 1em;
+    right: 1em;
+  }
+
+  @import 'container';
+}
