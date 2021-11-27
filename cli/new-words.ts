@@ -36,4 +36,4 @@ newWords = Array.from(new Set<string>(newWords));
 // Sort
 newWords.sort();
 
-console.log("  '" + newWords.join("',\n  '") + "',\n");
+console.log("'" + newWords.join("',\n  '") + "',\n");
