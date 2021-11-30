@@ -16,13 +16,20 @@
 
   animation: blink 5s linear infinite;
   @keyframes blink {
+    // black: 3
+    // animation: 4
+
     0%,
-    80%,
+    // 100-3-4*2
+    89%,
     100% {
       opacity: 0;
     }
-    85%,
-    95% {
+
+    // 100-3-4
+    93%,
+    // 100-4
+    96% {
       opacity: 1;
     }
   }
