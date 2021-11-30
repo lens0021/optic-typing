@@ -53,7 +53,7 @@ export class OpticTyping {
         },
         () => {
           delete this.targets[target.message];
-          this.targetFactory.multiplyToFontSize(1.02);
+          this.targetFactory.multiplyToFontSize(1.01);
           this.$body.classList.toggle('wrong', true);
           this.$health.style.width = `${
             100 - this.targetFactory.health * 100
