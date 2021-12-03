@@ -38,6 +38,9 @@ export class StatHelper {
     // Update todayStats
     if (todayStats.date !== Utils.dateStamp()) {
       this.allStats[todayStats.date] = this.summarizeDay(todayStats.stats);
+      this.chartRecent.data.labels?.push(todayStats.date);
+      this.chartRecent.data.datasets[0].data.push(0);
+      this.chartRecent.data.datasets[1].data.push(0);
       todayStats.date = Utils.dateStamp();
       todayStats.stats = {};
     }
