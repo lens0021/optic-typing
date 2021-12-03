@@ -78,6 +78,7 @@ opticTyping.main();
 
 $buttonStats.addEventListener('click', () => {
   $stats.classList.toggle('hidden');
+  $input.focus();
 });
 
 const showPlayingTime = () => {
