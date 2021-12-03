@@ -20,6 +20,33 @@ const $stats = <HTMLDivElement>document.querySelector('#stats');
 const $notification = <HTMLDivElement>document.querySelector('#notification');
 const RED = 'rgb(255, 99, 132)',
   BLUE = 'rgb(99, 132, 255)';
+
+const chartSession = new Chart(
+  <HTMLCanvasElement>document.getElementById('chart-session'),
+  {
+    type: 'line',
+    data: {
+      labels: [],
+      datasets: [
+        {
+          label: 'Average Font Size',
+          backgroundColor: RED,
+          borderColor: RED,
+          data: [],
+        },
+      ],
+    },
+    options: {
+      aspectRatio: 1.5,
+      plugins: {
+        title: {
+          display: true,
+          text: 'This session',
+        },
+      },
+    },
+  }
+);
 const chartRecent = new Chart(
   <HTMLCanvasElement>document.getElementById('chart-recent'),
   {
@@ -29,15 +56,15 @@ const chartRecent = new Chart(
       datasets: [
         {
           label: 'Average Font Size',
-          backgroundColor: BLUE,
-          borderColor: BLUE,
+          backgroundColor: RED,
+          borderColor: RED,
           data: [],
           yAxisID: 'y',
         },
         {
           label: 'Playing Time',
-          backgroundColor: RED,
-          borderColor: RED,
+          backgroundColor: BLUE,
+          borderColor: BLUE,
           data: [],
           yAxisID: 'y1',
           fill: true,
@@ -60,33 +87,6 @@ const chartRecent = new Chart(
             display: true,
             text: 'minutes',
           },
-        },
-      },
-    },
-  }
-);
-
-const chartSession = new Chart(
-  <HTMLCanvasElement>document.getElementById('chart-session'),
-  {
-    type: 'line',
-    data: {
-      labels: [],
-      datasets: [
-        {
-          label: 'Average Font Size',
-          backgroundColor: BLUE,
-          borderColor: BLUE,
-          data: [],
-        },
-      ],
-    },
-    options: {
-      aspectRatio: 1.5,
-      plugins: {
-        title: {
-          display: true,
-          text: 'This session',
         },
       },
     },
