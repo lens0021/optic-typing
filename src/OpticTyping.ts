@@ -7,7 +7,7 @@ const Cookies: any = require('js-cookie');
 export class OpticTyping {
   private readonly delay = 500;
   private readonly maxTargetNum = 10;
-  private readonly capacityQueue = 30;
+  private readonly capacityQueue = 5;
 
   private targetFactory: TargetFactory;
   private targets: { [key: string]: Target } = {};
@@ -36,6 +36,7 @@ export class OpticTyping {
             this._queueHealth.shift();
             this._queueFontSize.shift();
             this.chart.data?.labels?.shift();
+            this.chart.data.datasets[0].data.shift();
           }
           this._queueHealth.push(this.targetFactory.health);
           this._queueFontSize.push(this.targetFactory.fontSize);
