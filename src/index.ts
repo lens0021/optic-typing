@@ -35,6 +35,7 @@ const newChart = (id: string, title: string, label: string) => {
       ],
     },
     options: {
+      aspectRatio: 1.5,
       plugins: {
         title: {
           display: true,
@@ -49,7 +50,6 @@ const chartRecent = newChart(
   'This session',
   'Average Font Size'
 );
-const chartToday = newChart('chart-today', 'Today', 'Average Font Size');
 const chartSession = newChart(
   'chart-session',
   'This session',
@@ -72,7 +72,7 @@ if (Cookies.get('korean') == '1') {
 }
 
 const timeStart = new Date();
-const statHelper = new StatHelper(opticTyping, chartToday, chartRecent);
+const statHelper = new StatHelper(opticTyping, chartRecent);
 
 opticTyping.main();
 

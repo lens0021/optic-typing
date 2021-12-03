@@ -16,22 +16,10 @@ export class StatHelper {
 
   public constructor(
     private opticTyping: OpticTyping,
-    private chartToday: Chart,
     private chartRecent: Chart
   ) {
     this.sessionKey = new Date().getTime().toString();
     this.timeStart = new Date();
-
-    for (let stat of Object.values(this.todayStats.stats)) {
-      if (stat[INDEX_SUM_FONT_SIZE] === 0) {
-        continue;
-      }
-      chartToday.data.labels?.push('');
-      chartToday.data.datasets[0].data.push(
-        stat[INDEX_SUM_FONT_SIZE] / stat[INDEX_COUNT_FONT_SIZE]
-      );
-    }
-    chartToday.update();
 
     for (let date in this.allStats) {
       chartRecent.data.labels?.push(date);
@@ -60,9 +48,12 @@ export class StatHelper {
     // Update allStats
     const allStats = this.allStats;
     // Copy todayStats to allStats
-    allStats[todayStats.date] = this.summarizeDay(
-      Object.values(todayStats.stats)
-    );
+    const summary = this.summarizeDay(Object.values(todayStats.stats));
+    allStats[todayStats.date] = summary;
+    const lastIndex = this.chartRecent.data.datasets[0].data.length - 1;
+    this.chartRecent.data.datasets[0].data[lastIndex] =
+      summary[INDEX_AVERAGE_FONT_SIZE];
+    this.chartRecent.update();
 
     this.allStats = allStats;
   }
