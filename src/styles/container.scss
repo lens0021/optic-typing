@@ -3,7 +3,7 @@
 $bar-height: 2rem;
 
 .container {
-  position: fixed;
+  position: absolute;
   $margin-canvas: 3em;
   left: $margin-canvas;
   top: $margin-canvas;
@@ -51,15 +51,15 @@ $bar-height: 2rem;
     .bar,
     .average {
       position: absolute;
-      right: 0;
+      left: 0;
       top: 0;
       bottom: 0;
-      width: 100%;
+      width: 0;
       transition: width 1s;
     }
 
     .bar {
-      background-color: black;
+      background-color: greenyellow;
     }
 
     .average {

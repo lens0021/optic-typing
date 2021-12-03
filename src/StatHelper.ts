@@ -1,3 +1,4 @@
+import { Chart } from 'chart.js';
 import { OpticTyping } from './OpticTyping';
 import {
   AllStats,
@@ -13,9 +14,32 @@ export class StatHelper {
   private sessionKey: string;
   private timeStart: Date;
 
-  public constructor(private opticTyping: OpticTyping) {
+  public constructor(
+    private opticTyping: OpticTyping,
+    private chartToday: Chart,
+    private chartRecent: Chart
+  ) {
     this.sessionKey = new Date().getTime().toString();
     this.timeStart = new Date();
+
+    for (let stat of Object.values(this.todayStats.stats)) {
+      if (stat[INDEX_SUM_FONT_SIZE] === 0) {
+        continue;
+      }
+      chartToday.data.labels?.push('');
+      chartToday.data.datasets[0].data.push(
+        stat[INDEX_SUM_FONT_SIZE] / stat[INDEX_COUNT_FONT_SIZE]
+      );
+    }
+    chartToday.update();
+
+    for (let date in this.allStats) {
+      chartRecent.data.labels?.push(date);
+      chartRecent.data.datasets[0].data.push(
+        this.allStats[date][INDEX_AVERAGE_FONT_SIZE]
+      );
+    }
+    chartRecent.update();
   }
 
   public storeStats() {

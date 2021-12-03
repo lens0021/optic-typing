@@ -31,4 +31,8 @@ export default class Utils {
   static average(arr: number[]): number {
     return this.sum(arr) / arr.length;
   }
+
+  static range(end: number) {
+    return Array.from({ length: end }, (_, i) => i + 1);
+  }
 }

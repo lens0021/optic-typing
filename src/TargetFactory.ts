@@ -41,7 +41,7 @@ export class TargetFactory {
     this._fontSize = this.fontSizeMax;
   }
 
-  public get health() {
+  public get health(): number {
     const maxRate = this.fontSizeMax - this.fontSizeMin;
     const current = this.fontSizeMax - this._fontSize;
     return current / maxRate;

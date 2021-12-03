@@ -6,22 +6,35 @@
     <!-- <link rel="icon" href="images/icon.png" /> -->
   </head>
   <body>
-    <div class="checks">
-      <input type="checkbox" id="check-korean" />
-      <label for="check-korean">Korean</label>
+    <div class="stats hidden" id="stats">
+      <canvas id="chart-session"></canvas>
+      <canvas id="chart-today"></canvas>
+      <canvas id="chart-recent"></canvas>
     </div>
-    <div class="container">
-      <div class="timer"></div>
-      <div id="canvas" class="canvas">
-        <div id="notification" class="notification hidden"></div>
+    <div class="board" id="board">
+      <div class="checks">
+        <input type="checkbox" id="check-korean" />
+        <label for="check-korean">Korean</label>
       </div>
-      <input id="input" type="text" />
-      <div class="health">
-        <div id="health" class="bar"></div>
-        <div id="health-average" class="average"></div>
-        <div id="health-text" class="health-text"></div>
+      <input
+        class="button statistics"
+        id="button-stats"
+        type="button"
+        value="Statistics"
+      />
+      <div class="container">
+        <div class="timer"></div>
+        <div id="canvas" class="canvas">
+          <div id="notification" class="notification hidden"></div>
+        </div>
+        <input id="input" type="text" />
+        <div class="health">
+          <div id="health" class="bar"></div>
+          <div id="health-average" class="average"></div>
+          <div id="health-text" class="health-text"></div>
+        </div>
+        <div class="blink-helper">Blink!</div>
       </div>
-      <div class="blink-helper">Blink!</div>
     </div>
   </body>
   <script src="dist/index.js"></script>

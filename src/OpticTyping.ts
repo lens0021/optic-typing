@@ -1,3 +1,4 @@
+import { Chart } from 'chart.js';
 import { Target } from './Target';
 import { TargetFactory } from './TargetFactory';
 import Utils from './Utils';
@@ -10,17 +11,18 @@ export class OpticTyping {
 
   private targetFactory: TargetFactory;
   private targets: { [key: string]: Target } = {};
-  private queueHealth: number[] = [];
-  private queueFontSize: number[] = [];
+  private _queueHealth: number[] = [];
+  private _queueFontSize: number[] = [];
 
   public constructor(
-    private $body: HTMLElement,
+    private $board: HTMLElement,
     private $canvas: HTMLElement,
     private $input: HTMLInputElement,
     private $health: HTMLElement,
     private $healthAverage: HTMLElement,
     private $healthText: HTMLElement,
-    private $checkKorean: HTMLInputElement
+    private $checkKorean: HTMLInputElement,
+    private chart: Chart
   ) {
     this.targetFactory = new TargetFactory();
   }
@@ -30,33 +32,32 @@ export class OpticTyping {
       const target = this.targetFactory.newTarget(
         () => {
           // Statistics
-          if (this.queueHealth.length > this.capacityQueue) {
-            this.queueHealth.shift();
-            this.queueFontSize.shift();
+          if (this._queueHealth.length > this.capacityQueue) {
+            this._queueHealth.shift();
+            this._queueFontSize.shift();
           }
-          this.queueHealth.push(this.targetFactory.health);
-          this.queueFontSize.push(this.targetFactory.fontSize);
+          this._queueHealth.push(this.targetFactory.health);
+          this._queueFontSize.push(this.targetFactory.fontSize);
+          this.chart.data?.labels?.push('');
+          const averageFontSize = Utils.average(this._queueFontSize);
+          this.chart.data.datasets[0].data.push(averageFontSize);
           this.$healthAverage.style.width = `${
-            100 - Utils.average(this.queueHealth) * 100
+            Utils.average(this._queueHealth) * 100
           }%`;
-          this.$healthText.innerHTML =
-            Utils.average(this.queueFontSize).toFixed(2) + 'mm';
+          this.$healthText.innerHTML = averageFontSize.toFixed(2) + 'mm';
+          this.chart.update();
 
           // Adjust the size of the target.
           delete this.targets[target.message];
           this.targetFactory.multiplyToFontSize(0.95);
-          this.$body.classList.toggle('wrong', false);
-          this.$health.style.width = `${
-            100 - this.targetFactory.health * 100
-          }%`;
+          this.$board.classList.toggle('wrong', false);
+          this.$health.style.width = `${this.targetFactory.health * 100}%`;
         },
         () => {
           delete this.targets[target.message];
           this.targetFactory.multiplyToFontSize(1.01);
-          this.$body.classList.toggle('wrong', true);
-          this.$health.style.width = `${
-            100 - this.targetFactory.health * 100
-          }%`;
+          this.$board.classList.toggle('wrong', true);
+          this.$health.style.width = `${this.targetFactory.health * 100}%`;
         }
       );
       this.targets[target.message] = target;
@@ -102,15 +103,23 @@ export class OpticTyping {
       this.$input.focus();
     });
 
-    this.$health.style.width = `${100 - this.targetFactory.health * 100}%`;
+    this.$health.style.width = `${this.targetFactory.health * 100}%`;
     this.addTargetRepeatedly();
   }
 
+  public get queueFontSize() {
+    return this._queueFontSize;
+  }
+
+  public get queueHealth() {
+    return this._queueHealth;
+  }
+
   public get sumFontSize() {
-    return Utils.sum(this.queueFontSize);
+    return Utils.sum(this._queueFontSize);
   }
 
   public get countFontSize() {
-    return this.queueFontSize.length;
+    return this._queueFontSize.length;
   }
 }
