@@ -12,7 +12,6 @@ const $health = <HTMLDivElement>document.querySelector('#health');
 const $healthAverage = <HTMLDivElement>(
   document.querySelector('#health-average')
 );
-const $healthText = <HTMLDivElement>document.querySelector('#health-text');
 const $checkKorean = <HTMLInputElement>document.querySelector('#check-korean');
 const $buttonStats = <HTMLInputElement>document.querySelector('#button-stats');
 const $stats = <HTMLDivElement>document.querySelector('#stats');
@@ -99,7 +98,6 @@ const opticTyping = new OpticTyping(
   $input,
   $health,
   $healthAverage,
-  $healthText,
   $checkKorean,
   chartSession
 );

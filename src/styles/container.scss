@@ -66,24 +66,6 @@ $bar-height: 2rem;
       border-right: 0.2em red solid;
       box-sizing: border-box;
     }
-
-    .health-text {
-      width: 100%;
-      position: absolute;
-      text-align: right;
-      font-size: $font-size-largest;
-      bottom: $bar-height;
-
-      transition-property: transform, opacity;
-      transition-duration: 100ms;
-      transform-origin: 0 100%;
-      transform: scaleY(0);
-      opacity: 0;
-    }
-    &:hover .health-text {
-      transform: scaleY(1);
-      opacity: 1;
-    }
   }
 
   @import 'blink-helper';

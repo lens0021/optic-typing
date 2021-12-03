@@ -20,7 +20,6 @@ export class OpticTyping {
     private $input: HTMLInputElement,
     private $health: HTMLElement,
     private $healthAverage: HTMLElement,
-    private $healthText: HTMLElement,
     private $checkKorean: HTMLInputElement,
     private chart: Chart
   ) {
@@ -46,7 +45,6 @@ export class OpticTyping {
           this.$healthAverage.style.width = `${
             Utils.average(this._queueHealth) * 100
           }%`;
-          this.$healthText.innerHTML = averageFontSize.toFixed(2) + 'mm';
           this.chart.update();
 
           // Adjust the size of the target.
