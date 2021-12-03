@@ -2,8 +2,8 @@ import { Target } from './Target';
 const RandomWords = require('random-words');
 import { koreanWords } from './KoreanWords';
 export class TargetFactory {
-  private readonly fontSizeMin = 3;
-  private readonly fontSizeMax = 15;
+  public readonly fontSizeMin = 3;
+  public readonly fontSizeMax = 15;
   private _fontSize = 13;
   private _korean: boolean = false;
 

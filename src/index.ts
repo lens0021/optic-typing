@@ -17,6 +17,15 @@ const $notification = <HTMLDivElement>document.querySelector('#notification');
 const $checkKorean = <HTMLInputElement>document.querySelector('#check-korean');
 const $buttonStats = <HTMLInputElement>document.querySelector('#button-stats');
 const $stats = <HTMLDivElement>document.querySelector('#stats');
+const opticTyping = new OpticTyping(
+  $board,
+  $canvas,
+  $input,
+  $health,
+  $notification,
+  $healthAverage,
+  $checkKorean
+);
 
 const RED = 'rgb(255, 99, 132)',
   BLUE = 'rgb(99, 132, 255)';
@@ -80,6 +89,7 @@ const chartSession: Chart = new Chart(
               display: true,
               text: 'mm',
             },
+            min: opticTyping.targetFactory.fontSizeMin,
           },
           y1: {
             position: 'right',
@@ -93,15 +103,6 @@ const chartSession: Chart = new Chart(
       },
     }
   );
-const opticTyping = new OpticTyping(
-  $board,
-  $canvas,
-  $input,
-  $health,
-  $notification,
-  $healthAverage,
-  $checkKorean
-);
 
 opticTyping.onHit = () => {
   if (opticTyping.queueHealth.length > opticTyping.capacityQueue) {
