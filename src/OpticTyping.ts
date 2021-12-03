@@ -5,15 +5,16 @@ import Utils from './Utils';
 const Cookies: any = require('js-cookie');
 
 export class OpticTyping {
+  public readonly capacityQueue = 30;
   private readonly delay = 500;
   private readonly maxTargetNum = 10;
-  private readonly capacityQueue = 30;
 
   private targetFactory: TargetFactory;
   private targets: { [key: string]: Target } = {};
   private _queueHealth: number[] = [];
   private _queueFontSize: number[] = [];
   private timeStart = new Date();
+  private _onHit?: () => void;
 
   public constructor(
     private $board: HTMLElement,
@@ -22,8 +23,7 @@ export class OpticTyping {
     private $health: HTMLElement,
     private $notification: HTMLElement,
     private $healthAverage: HTMLElement,
-    private $checkKorean: HTMLInputElement,
-    private chart: Chart
+    private $checkKorean: HTMLInputElement
   ) {
     this.targetFactory = new TargetFactory();
   }
@@ -36,24 +36,22 @@ export class OpticTyping {
           if (this._queueHealth.length > this.capacityQueue) {
             this._queueHealth.shift();
             this._queueFontSize.shift();
-            this.chart.data?.labels?.shift();
-            this.chart.data.datasets[0].data.shift();
           }
           this._queueHealth.push(this.targetFactory.health);
           this._queueFontSize.push(this.targetFactory.fontSize);
-          this.chart.data?.labels?.push('');
-          const averageFontSize = Utils.average(this._queueFontSize);
-          this.chart.data.datasets[0].data.push(averageFontSize);
           this.$healthAverage.style.width = `${
             Utils.average(this._queueHealth) * 100
           }%`;
-          this.chart.update();
 
           // Adjust the size of the target.
           delete this.targets[target.message];
           this.targetFactory.multiplyToFontSize(0.95);
           this.$board.classList.toggle('wrong', false);
           this.$health.style.width = `${this.targetFactory.health * 100}%`;
+
+          if (this._onHit) {
+            this._onHit();
+          }
         },
         () => {
           delete this.targets[target.message];
@@ -141,5 +139,9 @@ export class OpticTyping {
 
   public get countFontSize() {
     return this._queueFontSize.length;
+  }
+
+  public set onHit(callback: () => void) {
+    this._onHit = callback;
   }
 }

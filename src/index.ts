@@ -21,7 +21,7 @@ const $stats = <HTMLDivElement>document.querySelector('#stats');
 const RED = 'rgb(255, 99, 132)',
   BLUE = 'rgb(99, 132, 255)';
 
-const chartSession = new Chart(
+const chartSession: Chart = new Chart(
     <HTMLCanvasElement>document.getElementById('chart-session'),
     {
       type: 'line',
@@ -47,7 +47,7 @@ const chartSession = new Chart(
       },
     }
   ),
-  chartRecent = new Chart(
+  chartRecent: Chart = new Chart(
     <HTMLCanvasElement>document.getElementById('chart-recent'),
     {
       type: 'line',
@@ -100,9 +100,21 @@ const opticTyping = new OpticTyping(
   $health,
   $notification,
   $healthAverage,
-  $checkKorean,
-  chartSession
+  $checkKorean
 );
+
+opticTyping.onHit = () => {
+  if (opticTyping.queueHealth.length > opticTyping.capacityQueue) {
+    chartSession.data?.labels?.shift();
+    chartSession.data.datasets[0].data.shift();
+  }
+  chartSession.data?.labels?.push('');
+  chartSession.data.datasets[0].data.push(
+    Utils.average(opticTyping.queueFontSize)
+  );
+  chartSession.update();
+  statHelper.storeStats();
+};
 
 if (Cookies.get('korean') == '1') {
   $checkKorean.checked = true;
