@@ -67,15 +67,16 @@ export class StatHelper {
   }): [number, number] {
     const sessions = Object.values(stats);
 
-    let minute = 0,
+    let seconds = 0,
       sum = 0,
       count = 0;
     for (const session of sessions) {
-      minute += session[INDEX_TIME];
+      seconds += session[INDEX_TIME];
       sum += session[INDEX_SUM_FONT_SIZE];
       count += session[INDEX_COUNT_FONT_SIZE];
     }
-    return [minute, sum / count];
+    const minutes = seconds / 60;
+    return [minutes, sum / count];
   }
 
   private get allStats(): AllStats {
