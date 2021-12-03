@@ -98,6 +98,7 @@ const opticTyping = new OpticTyping(
   $canvas,
   $input,
   $health,
+  $notification,
   $healthAverage,
   $checkKorean,
   chartSession
@@ -108,30 +109,18 @@ if (Cookies.get('korean') == '1') {
   opticTyping.korean = true;
 }
 
-const timeStart = new Date();
 const statHelper = new StatHelper(opticTyping, chartRecent);
-
-opticTyping.main();
 
 $buttonStats.addEventListener('click', () => {
   $stats.classList.toggle('hidden');
   $input.focus();
 });
 
-const showPlayingTime = () => {
-  $notification.classList.remove('hidden');
-  const t = Utils.humanReadableTime(new Date().getTime() - timeStart.getTime());
-  $notification.innerHTML = `Your playing time is: ${t}`;
-  setTimeout(() => {
-    $notification.classList.add('hidden');
-  }, 5000);
-};
-
 const everyMinutesTimer = () => {
   statHelper.storeStats();
-  showPlayingTime();
   setTimeout(everyMinutesTimer, Utils.minute);
 };
-
 setTimeout(everyMinutesTimer, Utils.minute);
+
+opticTyping.main();
 $input.focus();

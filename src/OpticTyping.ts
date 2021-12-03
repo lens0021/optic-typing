@@ -13,12 +13,14 @@ export class OpticTyping {
   private targets: { [key: string]: Target } = {};
   private _queueHealth: number[] = [];
   private _queueFontSize: number[] = [];
+  private timeStart = new Date();
 
   public constructor(
     private $board: HTMLElement,
     private $canvas: HTMLElement,
     private $input: HTMLInputElement,
     private $health: HTMLElement,
+    private $notification: HTMLElement,
     private $healthAverage: HTMLElement,
     private $checkKorean: HTMLInputElement,
     private chart: Chart
@@ -105,6 +107,24 @@ export class OpticTyping {
 
     this.$health.style.width = `${this.targetFactory.health * 100}%`;
     this.addTargetRepeatedly();
+
+    const everyMinutesTimer = () => {
+      this.showPlayingTime();
+      setTimeout(everyMinutesTimer, Utils.minute);
+    };
+
+    setTimeout(everyMinutesTimer, Utils.minute);
+  }
+
+  private showPlayingTime() {
+    this.$notification.classList.remove('hidden');
+    const t = Utils.humanReadableTime(
+      new Date().getTime() - this.timeStart.getTime()
+    );
+    this.$notification.innerHTML = `Your playing time is: ${t}`;
+    setTimeout(() => {
+      this.$notification.classList.add('hidden');
+    }, 5000);
   }
 
   public get queueFontSize() {
