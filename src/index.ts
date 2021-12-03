@@ -87,6 +87,7 @@ const chartRecent = new Chart(
             display: true,
             text: 'minutes',
           },
+          min: 0,
         },
       },
     },
