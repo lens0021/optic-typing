@@ -12,11 +12,12 @@ const $health = <HTMLDivElement>document.querySelector('#health');
 const $healthAverage = <HTMLDivElement>(
   document.querySelector('#health-average')
 );
+const $notification = <HTMLDivElement>document.querySelector('#notification');
+
 const $checkKorean = <HTMLInputElement>document.querySelector('#check-korean');
 const $buttonStats = <HTMLInputElement>document.querySelector('#button-stats');
 const $stats = <HTMLDivElement>document.querySelector('#stats');
 
-const $notification = <HTMLDivElement>document.querySelector('#notification');
 const RED = 'rgb(255, 99, 132)',
   BLUE = 'rgb(99, 132, 255)';
 
