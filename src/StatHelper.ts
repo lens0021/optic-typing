@@ -3,8 +3,8 @@ import { OpticTyping } from './OpticTyping';
 import {
   AllStats,
   TodayStats,
-  INDEX_TIME,
-  INDEX_AVERAGE_FONT_SIZE,
+  IDX_TIME,
+  IDX_AVERAGE_FONT_SIZE,
   INDEX_SUM_FONT_SIZE,
   INDEX_COUNT_FONT_SIZE,
 } from './Stats';
@@ -20,15 +20,18 @@ export class StatHelper {
   ) {
     this.sessionKey = new Date().getTime().toString();
     this.timeStart = new Date();
+    this.updateChart();
+  }
 
-    for (let date in this.allStats) {
-      chartRecent.data.labels?.push(date);
-      chartRecent.data.datasets[0].data.push(
-        this.allStats[date][INDEX_AVERAGE_FONT_SIZE]
-      );
-      chartRecent.data.datasets[1].data.push(this.allStats[date][INDEX_TIME]);
-    }
-    chartRecent.update();
+  public updateChart() {
+    const allStats = this.allStats;
+    this.chartRecent.data.labels = Object.keys(allStats);
+    const values = Object.values(allStats);
+    this.chartRecent.data.datasets[0].data = values.map(
+      (v) => v[IDX_AVERAGE_FONT_SIZE]
+    );
+    this.chartRecent.data.datasets[1].data = values.map((v) => v[IDX_TIME]);
+    this.chartRecent.update();
   }
 
   public storeStats() {
@@ -38,9 +41,7 @@ export class StatHelper {
     // Update todayStats
     if (todayStats.date !== Utils.dateStamp()) {
       this.allStats[todayStats.date] = this.summarizeDay(todayStats.stats);
-      this.chartRecent.data.labels?.push(todayStats.date);
-      this.chartRecent.data.datasets[0].data.push(0);
-      this.chartRecent.data.datasets[1].data.push(0);
+      this.updateChart();
       todayStats.date = Utils.dateStamp();
       todayStats.stats = {};
     }
@@ -55,11 +56,7 @@ export class StatHelper {
     // Copy todayStats to allStats
     const summary = this.summarizeDay(todayStats.stats);
     allStats[todayStats.date] = summary;
-    const lastIndex = this.chartRecent.data.datasets[0].data.length - 1;
-    this.chartRecent.data.datasets[0].data[lastIndex] =
-      summary[INDEX_AVERAGE_FONT_SIZE];
-    this.chartRecent.data.datasets[1].data[lastIndex] = summary[INDEX_TIME];
-    this.chartRecent.update();
+    this.updateChart();
 
     this.todayStats = todayStats;
     this.allStats = allStats;
@@ -74,7 +71,7 @@ export class StatHelper {
       sum = 0,
       count = 0;
     for (const session of sessions) {
-      seconds += session[INDEX_TIME];
+      seconds += session[IDX_TIME];
       sum += session[INDEX_SUM_FONT_SIZE];
       count += session[INDEX_COUNT_FONT_SIZE];
     }

@@ -22,77 +22,77 @@ const RED = 'rgb(255, 99, 132)',
   BLUE = 'rgb(99, 132, 255)';
 
 const chartSession = new Chart(
-  <HTMLCanvasElement>document.getElementById('chart-session'),
-  {
-    type: 'line',
-    data: {
-      labels: [],
-      datasets: [
-        {
-          label: 'Average Font Size',
-          backgroundColor: RED,
-          borderColor: RED,
-          data: [],
-        },
-      ],
-    },
-    options: {
-      aspectRatio: 1.5,
-      plugins: {
-        title: {
-          display: true,
-          text: 'This session',
-        },
+    <HTMLCanvasElement>document.getElementById('chart-session'),
+    {
+      type: 'line',
+      data: {
+        labels: [],
+        datasets: [
+          {
+            label: 'Average Font Size',
+            backgroundColor: RED,
+            borderColor: RED,
+            data: [],
+          },
+        ],
       },
-    },
-  }
-);
-const chartRecent = new Chart(
-  <HTMLCanvasElement>document.getElementById('chart-recent'),
-  {
-    type: 'line',
-    data: {
-      labels: [],
-      datasets: [
-        {
-          label: 'Average Font Size',
-          backgroundColor: RED,
-          borderColor: RED,
-          data: [],
-          yAxisID: 'y',
-        },
-        {
-          label: 'Playing Time',
-          backgroundColor: BLUE,
-          borderColor: BLUE,
-          data: [],
-          yAxisID: 'y1',
-          fill: true,
-        },
-      ],
-    },
-    options: {
-      aspectRatio: 1.5,
-      scales: {
-        y: {
-          position: 'left',
+      options: {
+        aspectRatio: 1.5,
+        plugins: {
           title: {
             display: true,
-            text: 'mm',
+            text: 'This session',
           },
-        },
-        y1: {
-          position: 'right',
-          title: {
-            display: true,
-            text: 'minutes',
-          },
-          min: 0,
         },
       },
-    },
-  }
-);
+    }
+  ),
+  chartRecent = new Chart(
+    <HTMLCanvasElement>document.getElementById('chart-recent'),
+    {
+      type: 'line',
+      data: {
+        labels: [],
+        datasets: [
+          {
+            label: 'Average Font Size',
+            backgroundColor: RED,
+            borderColor: RED,
+            data: [],
+            yAxisID: 'y',
+          },
+          {
+            label: 'Playing Time',
+            backgroundColor: BLUE,
+            borderColor: BLUE,
+            data: [],
+            yAxisID: 'y1',
+            fill: true,
+          },
+        ],
+      },
+      options: {
+        aspectRatio: 1.5,
+        scales: {
+          y: {
+            position: 'left',
+            title: {
+              display: true,
+              text: 'mm',
+            },
+          },
+          y1: {
+            position: 'right',
+            title: {
+              display: true,
+              text: 'minutes',
+            },
+            min: 0,
+          },
+        },
+      },
+    }
+  );
 const opticTyping = new OpticTyping(
   $board,
   $canvas,

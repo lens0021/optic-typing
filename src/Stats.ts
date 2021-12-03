@@ -1,5 +1,5 @@
-export const INDEX_TIME = 0;
-export const INDEX_AVERAGE_FONT_SIZE = 1;
+export const IDX_TIME = 0;
+export const IDX_AVERAGE_FONT_SIZE = 1;
 export const INDEX_SUM_FONT_SIZE = 1;
 export const INDEX_COUNT_FONT_SIZE = 2;
 
