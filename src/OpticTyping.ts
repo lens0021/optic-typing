@@ -7,7 +7,7 @@ const Cookies: any = require('js-cookie');
 export class OpticTyping {
   private readonly delay = 500;
   private readonly maxTargetNum = 10;
-  private readonly capacityQueue = 5;
+  private readonly capacityQueue = 30;
 
   private targetFactory: TargetFactory;
   private targets: { [key: string]: Target } = {};
