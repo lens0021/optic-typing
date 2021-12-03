@@ -36,10 +36,7 @@ export class StatHelper {
     const allStats = this.allStats;
 
     // Update todayStats
-    console.log('todayStats.date: ' + todayStats.date);
-    console.log('Utils.dateStamp(): ' + Utils.dateStamp());
     if (todayStats.date !== Utils.dateStamp()) {
-      console.log('정산');
       this.allStats[todayStats.date] = this.summarizeDay(todayStats.stats);
       todayStats.date = Utils.dateStamp();
       todayStats.stats = {};
