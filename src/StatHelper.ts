@@ -26,14 +26,21 @@ export class StatHelper {
       chartRecent.data.datasets[0].data.push(
         this.allStats[date][INDEX_AVERAGE_FONT_SIZE]
       );
+      chartRecent.data.datasets[1].data.push(this.allStats[date][INDEX_TIME]);
     }
     chartRecent.update();
   }
 
   public storeStats() {
-    // Update todayStats
     const todayStats = this.todayStats;
+    const allStats = this.allStats;
+
+    // Update todayStats
+    console.log('todayStats.date: ' + todayStats.date);
+    console.log('Utils.dateStamp(): ' + Utils.dateStamp());
     if (todayStats.date !== Utils.dateStamp()) {
+      console.log('정산');
+      this.allStats[todayStats.date] = this.summarizeDay(todayStats.stats);
       todayStats.date = Utils.dateStamp();
       todayStats.stats = {};
     }
@@ -43,26 +50,30 @@ export class StatHelper {
       this.opticTyping.sumFontSize,
       this.opticTyping.countFontSize,
     ];
-    this.todayStats = todayStats;
 
     // Update allStats
-    const allStats = this.allStats;
     // Copy todayStats to allStats
-    const summary = this.summarizeDay(Object.values(todayStats.stats));
+    const summary = this.summarizeDay(todayStats.stats);
     allStats[todayStats.date] = summary;
     const lastIndex = this.chartRecent.data.datasets[0].data.length - 1;
     this.chartRecent.data.datasets[0].data[lastIndex] =
       summary[INDEX_AVERAGE_FONT_SIZE];
+    this.chartRecent.data.datasets[1].data[lastIndex] = summary[INDEX_TIME];
     this.chartRecent.update();
 
+    this.todayStats = todayStats;
     this.allStats = allStats;
   }
 
-  private summarizeDay(day: [number, number, number][]): [number, number] {
+  private summarizeDay(stats: {
+    [key: string]: [number, number, number];
+  }): [number, number] {
+    const sessions = Object.values(stats);
+
     let minute = 0,
       sum = 0,
       count = 0;
-    for (const session of day) {
+    for (const session of sessions) {
       minute += session[INDEX_TIME];
       sum += session[INDEX_SUM_FONT_SIZE];
       count += session[INDEX_COUNT_FONT_SIZE];

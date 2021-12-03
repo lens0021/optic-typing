@@ -21,7 +21,11 @@ export default class Utils {
   }
 
   static dateStamp(): string {
-    return new Date().toISOString().split('T')[0];
+    const date = new Date(),
+      day = date.getDate().toString().padStart(2, '0'),
+      month = date.getMonth().toString().padStart(2, '0'),
+      year = date.getFullYear().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
   }
 
   static sum(arr: number[]): number {

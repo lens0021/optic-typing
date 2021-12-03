@@ -5,8 +5,6 @@ import './styles/styles.scss';
 const Cookies: any = require('js-cookie');
 import Chart from 'chart.js/auto';
 
-const BLUE = 'rgb(99, 132, 255)';
-
 const $board = <HTMLDivElement>document.querySelector('#board');
 const $canvas = <HTMLDivElement>document.querySelector('#canvas');
 const $input = <HTMLInputElement>document.querySelector('#input');
@@ -20,14 +18,63 @@ const $buttonStats = <HTMLInputElement>document.querySelector('#button-stats');
 const $stats = <HTMLDivElement>document.querySelector('#stats');
 
 const $notification = <HTMLDivElement>document.querySelector('#notification');
-const newChart = (id: string, title: string, label: string) => {
-  return new Chart(<HTMLCanvasElement>document.getElementById(id), {
+const RED = 'rgb(255, 99, 132)',
+  BLUE = 'rgb(99, 132, 255)';
+const chartRecent = new Chart(
+  <HTMLCanvasElement>document.getElementById('chart-recent'),
+  {
     type: 'line',
     data: {
       labels: [],
       datasets: [
         {
-          label: label,
+          label: 'Average Font Size',
+          backgroundColor: BLUE,
+          borderColor: BLUE,
+          data: [],
+          yAxisID: 'y',
+        },
+        {
+          label: 'Playing Time',
+          backgroundColor: RED,
+          borderColor: RED,
+          data: [],
+          yAxisID: 'y1',
+          fill: true,
+        },
+      ],
+    },
+    options: {
+      aspectRatio: 1.5,
+      scales: {
+        y: {
+          position: 'left',
+          title: {
+            display: true,
+            text: 'mm',
+          },
+        },
+        y1: {
+          position: 'right',
+          title: {
+            display: true,
+            text: 'minutes',
+          },
+        },
+      },
+    },
+  }
+);
+
+const chartSession = new Chart(
+  <HTMLCanvasElement>document.getElementById('chart-session'),
+  {
+    type: 'line',
+    data: {
+      labels: [],
+      datasets: [
+        {
+          label: 'Average Font Size',
           backgroundColor: BLUE,
           borderColor: BLUE,
           data: [],
@@ -39,21 +86,11 @@ const newChart = (id: string, title: string, label: string) => {
       plugins: {
         title: {
           display: true,
-          text: title,
+          text: 'This session',
         },
       },
     },
-  });
-};
-const chartRecent = newChart(
-  'chart-recent',
-  'This session',
-  'Average Font Size'
-);
-const chartSession = newChart(
-  'chart-session',
-  'This session',
-  'Average Font Size'
+  }
 );
 const opticTyping = new OpticTyping(
   $board,
