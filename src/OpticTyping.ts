@@ -35,6 +35,7 @@ export class OpticTyping {
           if (this._queueHealth.length > this.capacityQueue) {
             this._queueHealth.shift();
             this._queueFontSize.shift();
+            this.chart.data?.labels?.shift();
           }
           this._queueHealth.push(this.targetFactory.health);
           this._queueFontSize.push(this.targetFactory.fontSize);
