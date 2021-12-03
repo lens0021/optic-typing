@@ -1,24 +1,8 @@
 import { OpticTyping } from './OpticTyping';
+import Utils from './Utils';
+import { StatHelper } from './StatHelper';
 import './styles/styles.scss';
 const Cookies: any = require('js-cookie');
-const minute = 1000 * 60;
-
-function humanReadableTime(ms: number): string {
-  let h, m, s;
-  s = Math.floor(ms / 1000);
-  m = Math.floor(s / 60);
-  s = s % 60;
-  h = Math.floor(m / 60);
-  m = m % 60;
-  h = h % 24;
-  return [
-    h ? h + ' hour' + (h == 1 ? '' : 's') : '',
-    m ? m + ' minute' + (m == 1 ? '' : 's') : '',
-    s ? s + ' second' + (s == 1 ? '' : 's') : '',
-  ]
-    .filter(Boolean)
-    .join(', ');
-}
 
 (() => {
   const $body = document.body;
@@ -60,20 +44,28 @@ function humanReadableTime(ms: number): string {
       opticTyping.korean = true;
     }
 
+    const timeStart = new Date();
+    const statHelper = new StatHelper(opticTyping);
+
     opticTyping.main();
 
-    const timeStart = new Date();
-    const startCheckpoint = () => {
+    const showPlayingTime = () => {
       $notification.classList.remove('hidden');
-      const timeNow = new Date();
-      const t = humanReadableTime(timeNow.getTime() - timeStart.getTime());
+      const t = Utils.humanReadableTime(
+        new Date().getTime() - timeStart.getTime()
+      );
       $notification.innerHTML = `Your playing time is: ${t}`;
       setTimeout(() => {
         $notification.classList.add('hidden');
       }, 5000);
-      setTimeout(startCheckpoint, minute);
     };
 
-    setTimeout(startCheckpoint, minute);
+    const everyMinutesTimer = () => {
+      statHelper.storeStats();
+      showPlayingTime();
+      setTimeout(everyMinutesTimer, Utils.minute);
+    };
+
+    setTimeout(everyMinutesTimer, Utils.minute);
   }
 })();

@@ -1,8 +1,7 @@
 import { Target } from './Target';
 import { TargetFactory } from './TargetFactory';
+import Utils from './Utils';
 const Cookies: any = require('js-cookie');
-
-const average = (arr: number[]) => arr.reduce((a, b) => a + b, 0) / arr.length;
 
 export class OpticTyping {
   private readonly delay = 500;
@@ -38,10 +37,10 @@ export class OpticTyping {
           this.queueHealth.push(this.targetFactory.health);
           this.queueFontSize.push(this.targetFactory.fontSize);
           this.$healthAverage.style.width = `${
-            100 - average(this.queueHealth) * 100
+            100 - Utils.average(this.queueHealth) * 100
           }%`;
           this.$healthText.innerHTML =
-            average(this.queueFontSize).toFixed(2) + 'mm';
+            Utils.average(this.queueFontSize).toFixed(2) + 'mm';
 
           // Adjust the size of the target.
           delete this.targets[target.message];
@@ -105,5 +104,13 @@ export class OpticTyping {
 
     this.$health.style.width = `${100 - this.targetFactory.health * 100}%`;
     this.addTargetRepeatedly();
+  }
+
+  public get sumFontSize() {
+    return Utils.sum(this.queueFontSize);
+  }
+
+  public get countFontSize() {
+    return this.queueFontSize.length;
   }
 }
