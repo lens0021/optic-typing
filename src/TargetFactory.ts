@@ -4,7 +4,7 @@ import { koreanWords } from './KoreanWords';
 export class TargetFactory {
   public readonly fontSizeMin = 3;
   public readonly fontSizeMax = 15;
-  private _fontSize = 13;
+  private _fontSize = 8;
   private _korean: boolean = false;
 
   get fontSize() {
