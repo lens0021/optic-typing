@@ -92,7 +92,7 @@ export class ChartHelper {
     this.updateTodayChart(todayStats, allStats);
   }
 
-  private updateAllChart(stats: AllStats) {
+  public updateAllChart(stats: AllStats) {
     this.chartAll.data.labels = Object.keys(stats);
     const values = Object.values(stats);
     this.chartAll.data.datasets[0].data = values.map(
@@ -107,5 +107,11 @@ export class ChartHelper {
     this.chartSession.data.datasets[0].data = today.scores;
     this.chartSession.update();
     this.updateAllChart(all);
+  }
+
+  public addValueToTodayChart(val: number) {
+    this.chartSession.data.labels?.push('');
+    this.chartSession.data.datasets[0].data.push(val);
+    this.chartSession.update();
   }
 }

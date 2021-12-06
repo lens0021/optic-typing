@@ -62,12 +62,13 @@ class Index {
     // Register events
     this.opticTyping.onHit = (fontSize: number) => {
       this.statHelper.pushFontSize(fontSize);
+      this.chartHelper.addValueToTodayChart(fontSize);
     };
     this.statHelper.onStatChanged = (
       todayStats: TodayStats,
       allStats: AllStats
     ) => {
-      this.chartHelper.updateTodayChart(todayStats, allStats);
+      this.chartHelper.updateAllChart(allStats);
     };
     this.$buttonStats.addEventListener('click', () => {
       this.$stats.classList.toggle('hidden');

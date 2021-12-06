@@ -27031,6 +27031,12 @@ class ChartHelper {
         this.chartSession.update();
         this.updateAllChart(all);
     }
+    addValueToTodayChart(val) {
+        var _a;
+        (_a = this.chartSession.data.labels) === null || _a === void 0 ? void 0 : _a.push('');
+        this.chartSession.data.datasets[0].data.push(val);
+        this.chartSession.update();
+    }
 }
 ChartHelper.RED = 'rgb(255, 99, 132)';
 ChartHelper.BLUE = 'rgb(99, 132, 255)';
@@ -27110,9 +27116,11 @@ class Index {
         // Register events
         this.opticTyping.onHit = (fontSize) => {
             this.statHelper.pushFontSize(fontSize);
+            this.chartHelper.addValueToTodayChart(fontSize);
         };
         this.statHelper.onStatChanged = (todayStats, allStats) => {
-            this.chartHelper.updateTodayChart(todayStats, allStats);
+            // this.chartHelper.updateTodayChart(todayStats, allStats);
+            this.chartHelper.updateAllChart(allStats);
         };
         this.$buttonStats.addEventListener('click', () => {
             this.$stats.classList.toggle('hidden');
