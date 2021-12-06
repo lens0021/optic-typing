@@ -1,7 +1,13 @@
 export const IDX_TIME = 0;
 export const IDX_AVERAGE_FONT_SIZE = 1;
-export const INDEX_SUM_FONT_SIZE = 1;
-export const INDEX_COUNT_FONT_SIZE = 2;
+
+export type TodayStats = {
+  date: string;
+  times: {
+    [key: string]: number;
+  };
+  scores: number[];
+};
 
 export type AllStats = {
   [key: string]: [
@@ -12,30 +18,16 @@ export type AllStats = {
   ];
 };
 
-export type TodayStats = {
-  // Date
-  date: string;
-  stats: {
-    [key: string]: [
-      // Minutes
-      number,
-      // Sum of font-size
-      number,
-      // Count of font-size
-      number
-    ];
-  };
-};
-
-// const sample: AllStats = {
+// const sample: TodayStats = {
+//   date: '2021-12-05',
+//   times: {
+//     '1638508380148': 3,
+//     '1638508380248': 6,
+//   },
+//   scores: [5, 6, 7, 6, 5],
+// };
+// const sample2: AllStats = {
 //   '2021-12-03': [10, 5.5],
 //   '2021-12-04': [4, 5.4],
-// };
-// const sample2: TodayStats = {
-//   date: '2021-12-05',
-//   stats: {
-//     '1638508380148': [3, 154, 30],
-//     '1638508380248': [6, 300, 60],
-//   },
 // };
 // console.log(sample, sample2);

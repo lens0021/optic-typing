@@ -2,10 +2,14 @@ import { Target } from './Target';
 const RandomWords = require('random-words');
 import { koreanWords } from './KoreanWords';
 export class TargetFactory {
-  public readonly fontSizeMin = 3;
-  public readonly fontSizeMax = 15;
+  public static readonly fontSizeMin = 3;
+  public static readonly fontSizeMax = 15;
   private _fontSize = 8;
   private _korean: boolean = false;
+
+  public constructor(fontSize: number) {
+    this._fontSize = fontSize;
+  }
 
   get fontSize() {
     return this._fontSize;
@@ -32,18 +36,21 @@ export class TargetFactory {
 
     // Clamp
     this._fontSize = Math.min(
-      Math.max(this._fontSize, this.fontSizeMin),
-      this.fontSizeMax
+      Math.max(this._fontSize, TargetFactory.fontSizeMin),
+      TargetFactory.fontSizeMax
     );
   }
 
   public maximizeFontSize() {
-    this._fontSize = this.fontSizeMax;
+    this._fontSize = TargetFactory.fontSizeMax;
   }
 
+  /**
+   * health is a floating number in range of `[0,1]`. Zero means the font size is maximum and one means that is minimum.
+   */
   public get health(): number {
-    const maxRate = this.fontSizeMax - this.fontSizeMin;
-    const current = this.fontSizeMax - this._fontSize;
+    const maxRate = TargetFactory.fontSizeMax - TargetFactory.fontSizeMin;
+    const current = TargetFactory.fontSizeMax - this._fontSize;
     return current / maxRate;
   }
 }

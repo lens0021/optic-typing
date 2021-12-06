@@ -1,85 +1,82 @@
-import { Chart } from 'chart.js';
 import { OpticTyping } from './OpticTyping';
-import {
-  AllStats,
-  TodayStats,
-  IDX_TIME,
-  IDX_AVERAGE_FONT_SIZE,
-  INDEX_SUM_FONT_SIZE,
-  INDEX_COUNT_FONT_SIZE,
-} from './Stats';
+import { AllStats, TodayStats, IDX_TIME, IDX_AVERAGE_FONT_SIZE } from './Stats';
 import Utils from './Utils';
 
 export class StatHelper {
+  public static readonly NUM_TARGET_RECORDS = 60;
+
   private sessionKey: string;
-  private timeStart: Date;
+  private timeStart: number;
+  private onStatChangedCallbacks: ((
+    todayStats: TodayStats,
+    allStats: AllStats
+  ) => void)[] = [];
 
-  public constructor(
-    private opticTyping: OpticTyping,
-    private chartRecent: Chart
-  ) {
+  public constructor() {
     this.sessionKey = new Date().getTime().toString();
-    this.timeStart = new Date();
-    this.updateChart();
+    this.timeStart = new Date().getTime();
   }
 
-  public updateChart() {
-    const allStats = this.allStats;
-    this.chartRecent.data.labels = Object.keys(allStats);
-    const values = Object.values(allStats);
-    this.chartRecent.data.datasets[0].data = values.map(
-      (v) => v[IDX_AVERAGE_FONT_SIZE]
-    );
-    this.chartRecent.data.datasets[1].data = values.map((v) => v[IDX_TIME]);
-    this.chartRecent.update();
-  }
+  /**
+   * Pushes the given size and updates the playing time.
+   * @param size New size added.
+   */
+  public pushFontSize(size: number) {
+    const todayStats = StatHelper.todayStats;
+    const allStats = StatHelper.allStats;
 
-  public storeStats() {
-    const todayStats = this.todayStats;
-    const allStats = this.allStats;
-
-    // Update todayStats
     if (todayStats.date !== Utils.dateStamp()) {
-      this.allStats[todayStats.date] = this.summarizeDay(todayStats.stats);
-      this.updateChart();
+      StatHelper.allStats[todayStats.date] = this.summarizeDay(todayStats);
+      // this.updateChart();
       todayStats.date = Utils.dateStamp();
-      todayStats.stats = {};
+      todayStats.times = {};
+      todayStats.scores = [];
+    } else if (todayStats.scores.length > StatHelper.NUM_TARGET_RECORDS) {
+      todayStats.scores.shift();
     }
-    todayStats.stats[this.sessionKey] = [
+
+    todayStats.scores.push(size);
+    todayStats.times[this.sessionKey] =
       // ms to second
-      (new Date().getTime() - this.timeStart.getTime()) / Utils.second,
-      this.opticTyping.sumFontSize,
-      this.opticTyping.countFontSize,
-    ];
+      (new Date().getTime() - this.timeStart) / Utils.second;
 
     // Update allStats
-    // Copy todayStats to allStats
-    const summary = this.summarizeDay(todayStats.stats);
+    const summary = this.summarizeDay(todayStats);
     allStats[todayStats.date] = summary;
-    this.updateChart();
+    // this.updateChart();
 
-    this.todayStats = todayStats;
-    this.allStats = allStats;
+    StatHelper.todayStats = todayStats;
+    StatHelper.allStats = allStats;
+    for (let cb of this.onStatChangedCallbacks) {
+      cb(todayStats, allStats);
+    }
   }
 
-  private summarizeDay(stats: {
-    [key: string]: [number, number, number];
-  }): [number, number] {
-    const sessions = Object.values(stats);
-
-    let seconds = 0,
-      sum = 0,
-      count = 0;
-    for (const session of sessions) {
-      seconds += session[IDX_TIME];
-      sum += session[INDEX_SUM_FONT_SIZE];
-      count += session[INDEX_COUNT_FONT_SIZE];
+  private summarizeDay(stats: TodayStats): [number, number] {
+    let seconds = 0;
+    for (const time of Object.values(stats.times)) {
+      seconds += time;
     }
     const minutes = seconds / 60;
-    return [minutes, sum / count];
+    return [minutes, Utils.average(stats.scores)];
   }
 
-  private get allStats(): AllStats {
+  public static get todayStats(): TodayStats {
+    const todayStatsRaw = localStorage.todayStats;
+    if (todayStatsRaw) {
+      const json = JSON.parse(todayStatsRaw);
+      if (typeof json == 'object') {
+        return json;
+      }
+    }
+    return { date: Utils.dateStamp(), times: {}, scores: [] };
+  }
+
+  private static set todayStats(obj: TodayStats) {
+    localStorage.todayStats = JSON.stringify(obj);
+  }
+
+  public static get allStats(): AllStats {
     const allStatsRaw = localStorage.allStats;
     if (allStatsRaw) {
       const json = JSON.parse(allStatsRaw);
@@ -90,22 +87,13 @@ export class StatHelper {
     return {};
   }
 
-  private set allStats(obj) {
+  private static set allStats(obj: AllStats) {
     localStorage.allStats = JSON.stringify(obj);
   }
 
-  private get todayStats(): TodayStats {
-    const todayStatsRaw = localStorage.todayStats;
-    if (todayStatsRaw) {
-      const json = JSON.parse(todayStatsRaw);
-      if (typeof json == 'object') {
-        return json;
-      }
-    }
-    return { date: Utils.dateStamp(), stats: {} };
-  }
-
-  private set todayStats(obj) {
-    localStorage.todayStats = JSON.stringify(obj);
+  public set onStatChanged(
+    callback: (todayStats: TodayStats, allStats: AllStats) => void
+  ) {
+    this.onStatChangedCallbacks.push(callback);
   }
 }

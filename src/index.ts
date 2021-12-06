@@ -1,139 +1,93 @@
-import { OpticTyping } from './OpticTyping';
 import Utils from './Utils';
+import { OpticTyping } from './OpticTyping';
 import { StatHelper } from './StatHelper';
+import { ChartHelper } from './ChartHelper';
 import './styles/styles.scss';
 const Cookies: any = require('js-cookie');
-import Chart from 'chart.js/auto';
+import { AllStats, TodayStats } from './Stats';
 
-const $board = <HTMLDivElement>document.querySelector('#board');
-const $canvas = <HTMLDivElement>document.querySelector('#canvas');
-const $input = <HTMLInputElement>document.querySelector('#input');
-const $health = <HTMLDivElement>document.querySelector('#health');
-const $healthAverage = <HTMLDivElement>(
-  document.querySelector('#health-average')
-);
-const $notification = <HTMLDivElement>document.querySelector('#notification');
+class Index {
+  private opticTyping: OpticTyping;
+  private statHelper: StatHelper;
+  private chartHelper: ChartHelper;
 
-const $checkKorean = <HTMLInputElement>document.querySelector('#check-korean');
-const $buttonStats = <HTMLInputElement>document.querySelector('#button-stats');
-const $stats = <HTMLDivElement>document.querySelector('#stats');
-const opticTyping = new OpticTyping(
-  $board,
-  $canvas,
-  $input,
-  $health,
-  $notification,
-  $healthAverage,
-  $checkKorean
-);
+  // DOMs
+  // Board
+  private $board: HTMLDivElement;
+  private $canvas: HTMLDivElement;
+  private $input: HTMLInputElement;
+  private $health: HTMLDivElement;
+  private $notification: HTMLDivElement;
+  // Inputs
+  private $checkKorean: HTMLInputElement;
+  private $buttonStats: HTMLInputElement;
+  // Statistics
+  private $stats: HTMLDivElement;
 
-const RED = 'rgb(255, 99, 132)',
-  BLUE = 'rgb(99, 132, 255)';
+  public constructor() {
+    // Find elements
+    this.$board = <HTMLDivElement>document.getElementById('board');
+    this.$canvas = <HTMLDivElement>document.getElementById('canvas');
+    this.$input = <HTMLInputElement>document.getElementById('input');
+    this.$health = <HTMLDivElement>document.getElementById('health');
+    this.$notification = <HTMLDivElement>(
+      document.getElementById('notification')
+    );
+    this.$checkKorean = <HTMLInputElement>(
+      document.getElementById('check-korean')
+    );
+    this.$buttonStats = <HTMLInputElement>(
+      document.getElementById('button-stats')
+    );
+    this.$stats = <HTMLDivElement>document.getElementById('stats');
 
-const chartSession: Chart = new Chart(
-    <HTMLCanvasElement>document.getElementById('chart-session'),
-    {
-      type: 'line',
-      data: {
-        labels: [],
-        datasets: [
-          {
-            label: 'Average Font Size',
-            backgroundColor: RED,
-            borderColor: RED,
-            data: [],
-          },
-        ],
-      },
-      options: {
-        aspectRatio: 1.5,
-        plugins: {
-          title: {
-            display: true,
-            text: 'This session',
-          },
-        },
-      },
-    }
-  ),
-  chartRecent: Chart = new Chart(
-    <HTMLCanvasElement>document.getElementById('chart-recent'),
-    {
-      type: 'line',
-      data: {
-        labels: [],
-        datasets: [
-          {
-            label: 'Average Font Size',
-            backgroundColor: RED,
-            borderColor: RED,
-            data: [],
-            yAxisID: 'y',
-          },
-          {
-            label: 'Playing Time',
-            backgroundColor: BLUE,
-            borderColor: BLUE,
-            data: [],
-            yAxisID: 'y1',
-            fill: true,
-          },
-        ],
-      },
-      options: {
-        aspectRatio: 1.5,
-        scales: {
-          y: {
-            position: 'left',
-            title: {
-              display: true,
-              text: 'mm',
-            },
-            min: opticTyping.targetFactory.fontSizeMin,
-          },
-          y1: {
-            position: 'right',
-            title: {
-              display: true,
-              text: 'minutes',
-            },
-            min: 0,
-          },
-        },
-      },
-    }
-  );
+    // Construct
+    this.opticTyping = new OpticTyping(
+      this.$board,
+      this.$canvas,
+      this.$input,
+      this.$health,
+      this.$notification,
+      this.$checkKorean,
+      Utils.average(StatHelper.todayStats.scores) ?? 8
+    );
+    this.statHelper = new StatHelper();
+    this.chartHelper = new ChartHelper(
+      <HTMLCanvasElement>document.getElementById('chart-session'),
+      <HTMLCanvasElement>document.getElementById('chart-recent'),
+      StatHelper.allStats,
+      StatHelper.todayStats
+    );
 
-opticTyping.onHit = () => {
-  if (opticTyping.queueHealth.length > opticTyping.capacityQueue) {
-    chartSession.data?.labels?.shift();
-    chartSession.data.datasets[0].data.shift();
+    // Register events
+    this.opticTyping.onHit = (fontSize: number) => {
+      this.statHelper.pushFontSize(fontSize);
+    };
+    this.statHelper.onStatChanged = (
+      todayStats: TodayStats,
+      allStats: AllStats
+    ) => {
+      this.chartHelper.updateTodayChart(todayStats, allStats);
+    };
+    this.$buttonStats.addEventListener('click', () => {
+      this.$stats.classList.toggle('hidden');
+      this.$input.focus();
+    });
   }
-  chartSession.data?.labels?.push('');
-  chartSession.data.datasets[0].data.push(
-    Utils.average(opticTyping.queueFontSize)
-  );
-  chartSession.update();
-  statHelper.storeStats();
-};
 
-if (Cookies.get('korean') == '1') {
-  $checkKorean.checked = true;
-  opticTyping.korean = true;
+  public init() {
+    this.restoreSettings();
+    this.opticTyping.init();
+
+    this.$input.focus();
+  }
+
+  private restoreSettings() {
+    if (Cookies.get('korean') == '1') {
+      this.$checkKorean.checked = true;
+      this.opticTyping.korean = true;
+    }
+  }
 }
 
-const statHelper = new StatHelper(opticTyping, chartRecent);
-
-$buttonStats.addEventListener('click', () => {
-  $stats.classList.toggle('hidden');
-  $input.focus();
-});
-
-const everyMinutesTimer = () => {
-  statHelper.storeStats();
-  setTimeout(everyMinutesTimer, Utils.minute);
-};
-setTimeout(everyMinutesTimer, Utils.minute);
-
-opticTyping.main();
-$input.focus();
+new Index().init();

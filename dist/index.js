@@ -17,7 +17,7 @@
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "body{padding:0;margin:0;display:flex}.stats{width:100%;display:flex;flex-direction:column;overflow-y:auto;flex:1 2 auto}.stats.hidden{display:none}.stats canvas{padding:1em}.board{flex:1 1 auto;width:100%;position:relative;background-color:gray;transition:background-color 1s}.board.wrong{background-color:red;transition-duration:60s}.board .checks{position:absolute;top:1em;right:1em}.board .button{position:absolute;bottom:1em;left:1em}.board .container{position:absolute;left:3em;top:3em;right:3em;bottom:3em;box-shadow:0 14px 28px rgba(0,0,0,.25),0 10px 10px rgba(0,0,0,.22);display:flex;flex-direction:column}.board .container .timer{height:2rem;animation:infinite linear 60s timer;background-color:#fff}@keyframes timer{from{width:0%}to{width:100%}}.board .container .canvas{cursor:none;flex-grow:1;position:relative;background-color:#fff}.board .container .canvas .target{position:absolute;width:0;height:0;display:flex;justify-content:center;align-items:center;word-break:keep-all}.board .container .canvas .target .text{width:fit-content;height:fit-content;background-color:#fff;box-shadow:0 14px 28px rgba(0,0,0,.25),0 10px 10px rgba(0,0,0,.22);position:relative;padding:0 .1em .1em .1em;animation:appear 200ms}@keyframes appear{from{opacity:0;transform:scaleY(0)}to{opacity:100%;transform:scaleY(100%)}}.board .container .canvas .target .text:after{content:\"\";border-bottom:.1em solid transparent;position:absolute;left:0;bottom:0;width:100%;animation:time 10000ms linear}@keyframes time{0%{border-color:#adff2f;width:100%}100%{border-color:red;width:0%}}.board .container .canvas .target.inverse .text{background-color:#000;color:#fff}.board .container .canvas .notification{font-size:3em;padding-left:.5em;padding-top:.3em}.board .container .canvas .notification.hidden{display:none}.board .container #input{font-size:3em;text-align:center;padding-bottom:2rem}.board .container #input,.board .container #input:focus,.board .container #input:focus-visible{border:none;outline:none}.board .container .health{position:relative;height:2rem}.board .container .health .bar,.board .container .health .average{position:absolute;left:0;top:0;bottom:0;width:0;transition:width 1s}.board .container .health .bar{background-color:#adff2f}.board .container .health .average{border-right:.2em red solid;box-sizing:border-box}.board .container .blink-helper{pointer-events:none;position:absolute;top:0;bottom:0;left:0;right:0;background-color:#000;color:#fff;display:flex;justify-content:space-around;align-items:center;font-size:5em;animation:blink 5s linear infinite}@keyframes blink{0%,89%,100%{opacity:0}93%,96%{opacity:1}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "body{padding:0;margin:0;display:flex}.stats{width:100%;display:flex;flex-direction:column;overflow-y:auto;flex:1 2 auto}.stats.hidden{display:none}.stats canvas{padding:1em}.board{flex:1 1 auto;width:100%;position:relative;background-color:gray;transition:background-color 1s}.board.wrong{background-color:red;transition-duration:60s}.board .checks{position:absolute;top:1em;right:1em}.board .button{position:absolute;bottom:1em;left:1em}.board .container{position:absolute;left:3em;top:3em;right:3em;bottom:3em;box-shadow:0 14px 28px rgba(0,0,0,.25),0 10px 10px rgba(0,0,0,.22);display:flex;flex-direction:column}.board .container .timer{height:2rem;animation:infinite linear 60s timer;background-color:#fff}@keyframes timer{from{width:0%}to{width:100%}}.board .container .canvas{cursor:none;flex-grow:1;position:relative;background-color:#fff}.board .container .canvas .target{position:absolute;width:0;height:0;display:flex;justify-content:center;align-items:center;word-break:keep-all}.board .container .canvas .target .text{width:fit-content;height:fit-content;background-color:#fff;box-shadow:0 14px 28px rgba(0,0,0,.25),0 10px 10px rgba(0,0,0,.22);position:relative;padding:0 .1em .1em .1em;animation:appear 200ms}@keyframes appear{from{opacity:0;transform:scaleY(0)}to{opacity:100%;transform:scaleY(100%)}}.board .container .canvas .target .text:after{content:\"\";border-bottom:.1em solid transparent;position:absolute;left:0;bottom:0;width:100%;animation:time 10000ms linear}@keyframes time{0%{border-color:#adff2f;width:100%}100%{border-color:red;width:0%}}.board .container .canvas .target.inverse .text{background-color:#000;color:#fff}.board .container .canvas .notification{font-size:3em;padding-left:.5em;padding-top:.3em}.board .container .canvas .notification.hidden{display:none}.board .container #input{font-size:3em;text-align:center;padding-bottom:2rem}.board .container #input,.board .container #input:focus,.board .container #input:focus-visible{border:none;outline:none}.board .container .health{position:relative;height:2rem}.board .container .health .bar{position:absolute;left:0;top:0;bottom:0;width:0;transition:width 1s;background-color:#adff2f}.board .container .blink-helper{pointer-events:none;position:absolute;top:0;bottom:0;left:0;right:0;background-color:#000;color:#fff;display:flex;justify-content:space-around;align-items:center;font-size:5em;animation:blink 5s linear infinite}@keyframes blink{0%,89%,100%{opacity:0}93%,96%{opacity:1}}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -13539,97 +13539,6 @@ var __webpack_exports__ = {};
 (() => {
 "use strict";
 
-;// CONCATENATED MODULE: ./src/Target.ts
-class Target {
-    constructor(word, fontSize, onHit, onMiss) {
-        this.word = word;
-        this.fontSize = fontSize;
-        this.onHit = onHit;
-        this.onMiss = onMiss;
-        this.life = 10000;
-        this._message = word;
-        this.$element = document.createElement('div');
-        this.$element.classList.add('target');
-        if (Math.random() > 0.5) {
-            this.$element.classList.add('inverse');
-        }
-        this.$element.style.fontSize = this.fontSize + 'mm';
-        this.$element.style.top = 5 + Math.random() * 90 + '%';
-        this.$element.style.left = 5 + Math.random() * 90 + '%';
-        const $text = document.createElement('span');
-        $text.classList.add('text');
-        $text.innerHTML = this._message;
-        this.$element.append($text);
-        setTimeout(() => {
-            if (this.destroy()) {
-                this.onMiss();
-            }
-        }, this.life);
-    }
-    get message() {
-        return this._message;
-    }
-    hit() {
-        this.destroy();
-        this.onHit();
-    }
-    destroy() {
-        const parent = this.$element.parentNode;
-        if (!parent) {
-            return false;
-        }
-        if (parent.contains(this.$element)) {
-            parent.removeChild(this.$element);
-            return true;
-        }
-        return false;
-    }
-}
-
-// EXTERNAL MODULE: ./src/KoreanWords.js
-var KoreanWords = __webpack_require__(100);
-;// CONCATENATED MODULE: ./src/TargetFactory.ts
-
-const RandomWords = __webpack_require__(324);
-
-class TargetFactory {
-    constructor() {
-        this.fontSizeMin = 3;
-        this.fontSizeMax = 15;
-        this._fontSize = 8;
-        this._korean = false;
-    }
-    get fontSize() {
-        return this._fontSize;
-    }
-    newTarget(onHit, onMiss) {
-        return new Target(this.randomWords(), this._fontSize, onHit, onMiss);
-    }
-    set korean(korean) {
-        this._korean = korean;
-    }
-    randomWords() {
-        if (this._korean) {
-            return KoreanWords/* koreanWords */.n[Math.floor(Math.random() * KoreanWords/* koreanWords.length */.n.length)];
-        }
-        const word = RandomWords();
-        return word.charAt(0).toUpperCase() + word.slice(1);
-    }
-    multiplyToFontSize(multiplier) {
-        this._fontSize *= multiplier;
-        // Clamp
-        this._fontSize = Math.min(Math.max(this._fontSize, this.fontSizeMin), this.fontSizeMax);
-    }
-    maximizeFontSize() {
-        this._fontSize = this.fontSizeMax;
-    }
-    get health() {
-        const maxRate = this.fontSizeMax - this.fontSizeMin;
-        const current = this.fontSizeMax - this._fontSize;
-        return current / maxRate;
-    }
-}
-
 ;// CONCATENATED MODULE: ./src/Utils.ts
 class Utils {
     static humanReadableTime(ms) {
@@ -13666,51 +13575,136 @@ Utils.second = 1000;
 /** 1000 * 60 */
 Utils.minute = 60000;
 
+;// CONCATENATED MODULE: ./src/Target.ts
+
+class Target {
+    constructor(word, fontSize, onHit, onMiss) {
+        this.fontSize = fontSize;
+        this.onHit = onHit;
+        this.onMiss = onMiss;
+        this._message = word;
+        this.$element = document.createElement('div');
+        this.$element.classList.add('target');
+        if (Math.random() > 0.5) {
+            this.$element.classList.add('inverse');
+        }
+        this.$element.style.fontSize = this.fontSize + 'mm';
+        this.$element.style.top = 5 + Math.random() * 90 + '%';
+        this.$element.style.left = 5 + Math.random() * 90 + '%';
+        const $text = document.createElement('span');
+        $text.classList.add('text');
+        $text.innerHTML = this._message;
+        this.$element.append($text);
+        setTimeout(() => {
+            if (this.destroy()) {
+                this.onMiss();
+            }
+        }, Target.life);
+    }
+    get message() {
+        return this._message;
+    }
+    hit() {
+        this.destroy();
+        this.onHit();
+    }
+    destroy() {
+        const parent = this.$element.parentNode;
+        if (!parent) {
+            return false;
+        }
+        if (parent.contains(this.$element)) {
+            parent.removeChild(this.$element);
+            return true;
+        }
+        return false;
+    }
+}
+Target.life = 10 * Utils.second;
+
+// EXTERNAL MODULE: ./src/KoreanWords.js
+var KoreanWords = __webpack_require__(100);
+;// CONCATENATED MODULE: ./src/TargetFactory.ts
+
+const RandomWords = __webpack_require__(324);
+
+class TargetFactory {
+    constructor(fontSize) {
+        this._fontSize = 8;
+        this._korean = false;
+        this._fontSize = fontSize;
+    }
+    get fontSize() {
+        return this._fontSize;
+    }
+    newTarget(onHit, onMiss) {
+        return new Target(this.randomWords(), this._fontSize, onHit, onMiss);
+    }
+    set korean(korean) {
+        this._korean = korean;
+    }
+    randomWords() {
+        if (this._korean) {
+            return KoreanWords/* koreanWords */.n[Math.floor(Math.random() * KoreanWords/* koreanWords.length */.n.length)];
+        }
+        const word = RandomWords();
+        return word.charAt(0).toUpperCase() + word.slice(1);
+    }
+    multiplyToFontSize(multiplier) {
+        this._fontSize *= multiplier;
+        // Clamp
+        this._fontSize = Math.min(Math.max(this._fontSize, TargetFactory.fontSizeMin), TargetFactory.fontSizeMax);
+    }
+    maximizeFontSize() {
+        this._fontSize = TargetFactory.fontSizeMax;
+    }
+    /**
+     * health is a floating number in range of `[0,1]`. Zero means the font size is maximum and one means that is minimum.
+     */
+    get health() {
+        const maxRate = TargetFactory.fontSizeMax - TargetFactory.fontSizeMin;
+        const current = TargetFactory.fontSizeMax - this._fontSize;
+        return current / maxRate;
+    }
+}
+TargetFactory.fontSizeMin = 3;
+TargetFactory.fontSizeMax = 15;
+
 ;// CONCATENATED MODULE: ./src/OpticTyping.ts
 
 
 const Cookies = __webpack_require__(646);
 class OpticTyping {
-    constructor($board, $canvas, $input, $health, $notification, $healthAverage, $checkKorean) {
+    constructor($board, $canvas, $input, $health, $notification, $checkKorean, initFontsize = 8) {
         this.$board = $board;
         this.$canvas = $canvas;
         this.$input = $input;
         this.$health = $health;
         this.$notification = $notification;
-        this.$healthAverage = $healthAverage;
         this.$checkKorean = $checkKorean;
-        this.capacityQueue = 30;
-        this.delay = 500;
-        this.maxTargetNum = 10;
         this.targets = {};
-        this._queueHealth = [];
         this._queueFontSize = [];
         this.timeStart = new Date();
-        this.targetFactory = new TargetFactory();
+        this.onHitCallbacks = [];
+        this.targetFactory = new TargetFactory(initFontsize);
     }
     addTargetRepeatedly() {
-        if (Object.keys(this.targets).length < this.maxTargetNum) {
+        if (Object.keys(this.targets).length < OpticTyping.maxTargetNum) {
             const target = this.targetFactory.newTarget(() => {
                 // Statistics
-                if (this._queueHealth.length > this.capacityQueue) {
-                    this._queueHealth.shift();
-                    this._queueFontSize.shift();
-                }
-                this._queueHealth.push(this.targetFactory.health);
                 this._queueFontSize.push(this.targetFactory.fontSize);
-                this.$healthAverage.style.width = `${Utils.average(this._queueHealth) * 100}%`;
                 // Adjust the size of the target.
                 delete this.targets[target.message];
                 this.targetFactory.multiplyToFontSize(0.95);
-                this.$board.classList.toggle('wrong', false);
+                this.$board.classList.remove('wrong');
                 this.$health.style.width = `${this.targetFactory.health * 100}%`;
-                if (this._onHit) {
-                    this._onHit();
+                for (let cb of this.onHitCallbacks) {
+                    cb(this.targetFactory.fontSize);
                 }
             }, () => {
                 delete this.targets[target.message];
                 this.targetFactory.multiplyToFontSize(1.01);
-                this.$board.classList.toggle('wrong', true);
+                this.$board.classList.add('wrong');
                 this.$health.style.width = `${this.targetFactory.health * 100}%`;
             });
             this.targets[target.message] = target;
@@ -13718,12 +13712,12 @@ class OpticTyping {
         }
         setTimeout(() => {
             this.addTargetRepeatedly();
-        }, this.delay);
+        }, OpticTyping.delay);
     }
     set korean(korean) {
         this.targetFactory.korean = korean;
     }
-    main() {
+    init() {
         this.$canvas.addEventListener('click', (ev) => {
             this.$input.focus();
         });
@@ -13766,9 +13760,6 @@ class OpticTyping {
     get queueFontSize() {
         return this._queueFontSize;
     }
-    get queueHealth() {
-        return this._queueHealth;
-    }
     get sumFontSize() {
         return Utils.sum(this._queueFontSize);
     }
@@ -13776,83 +13767,74 @@ class OpticTyping {
         return this._queueFontSize.length;
     }
     set onHit(callback) {
-        this._onHit = callback;
+        this.onHitCallbacks.push(callback);
     }
 }
-
-;// CONCATENATED MODULE: ./src/Stats.ts
-const IDX_TIME = 0;
-const IDX_AVERAGE_FONT_SIZE = 1;
-const INDEX_SUM_FONT_SIZE = 1;
-const INDEX_COUNT_FONT_SIZE = 2;
-// const sample: AllStats = {
-//   '2021-12-03': [10, 5.5],
-//   '2021-12-04': [4, 5.4],
-// };
-// const sample2: TodayStats = {
-//   date: '2021-12-05',
-//   stats: {
-//     '1638508380148': [3, 154, 30],
-//     '1638508380248': [6, 300, 60],
-//   },
-// };
-// console.log(sample, sample2);
+OpticTyping.capacityQueue = 30;
+OpticTyping.delay = 500;
+OpticTyping.maxTargetNum = 10;
 
 ;// CONCATENATED MODULE: ./src/StatHelper.ts
 
-
 class StatHelper {
-    constructor(opticTyping, chartRecent) {
-        this.opticTyping = opticTyping;
-        this.chartRecent = chartRecent;
+    constructor() {
+        this.onStatChangedCallbacks = [];
         this.sessionKey = new Date().getTime().toString();
-        this.timeStart = new Date();
-        this.updateChart();
+        this.timeStart = new Date().getTime();
     }
-    updateChart() {
-        const allStats = this.allStats;
-        this.chartRecent.data.labels = Object.keys(allStats);
-        const values = Object.values(allStats);
-        this.chartRecent.data.datasets[0].data = values.map((v) => v[IDX_AVERAGE_FONT_SIZE]);
-        this.chartRecent.data.datasets[1].data = values.map((v) => v[IDX_TIME]);
-        this.chartRecent.update();
-    }
-    storeStats() {
-        const todayStats = this.todayStats;
-        const allStats = this.allStats;
-        // Update todayStats
+    /**
+     * Pushes the given size and updates the playing time.
+     * @param size New size added.
+     */
+    pushFontSize(size) {
+        const todayStats = StatHelper.todayStats;
+        const allStats = StatHelper.allStats;
         if (todayStats.date !== Utils.dateStamp()) {
-            this.allStats[todayStats.date] = this.summarizeDay(todayStats.stats);
-            this.updateChart();
+            StatHelper.allStats[todayStats.date] = this.summarizeDay(todayStats);
+            // this.updateChart();
             todayStats.date = Utils.dateStamp();
-            todayStats.stats = {};
+            todayStats.times = {};
+            todayStats.scores = [];
         }
-        todayStats.stats[this.sessionKey] = [
+        else if (todayStats.scores.length > StatHelper.NUM_TARGET_RECORDS) {
+            todayStats.scores.shift();
+        }
+        todayStats.scores.push(size);
+        todayStats.times[this.sessionKey] =
             // ms to second
-            (new Date().getTime() - this.timeStart.getTime()) / Utils.second,
-            this.opticTyping.sumFontSize,
-            this.opticTyping.countFontSize,
-        ];
+            (new Date().getTime() - this.timeStart) / Utils.second;
         // Update allStats
-        // Copy todayStats to allStats
-        const summary = this.summarizeDay(todayStats.stats);
+        const summary = this.summarizeDay(todayStats);
         allStats[todayStats.date] = summary;
-        this.updateChart();
-        this.todayStats = todayStats;
-        this.allStats = allStats;
+        // this.updateChart();
+        StatHelper.todayStats = todayStats;
+        StatHelper.allStats = allStats;
+        for (let cb of this.onStatChangedCallbacks) {
+            cb(todayStats, allStats);
+        }
     }
     summarizeDay(stats) {
-        const sessions = Object.values(stats);
-        let seconds = 0, sum = 0, count = 0;
-        for (const session of sessions) {
-            seconds += session[IDX_TIME];
-            sum += session[INDEX_SUM_FONT_SIZE];
-            count += session[INDEX_COUNT_FONT_SIZE];
+        let seconds = 0;
+        for (const time of Object.values(stats.times)) {
+            seconds += time;
         }
         const minutes = seconds / 60;
-        return [minutes, sum / count];
+        return [minutes, Utils.average(stats.scores)];
     }
-    get allStats() {
+    static get todayStats() {
+        const todayStatsRaw = localStorage.todayStats;
+        if (todayStatsRaw) {
+            const json = JSON.parse(todayStatsRaw);
+            if (typeof json == 'object') {
+                return json;
+            }
+        }
+        return { date: Utils.dateStamp(), times: {}, scores: [] };
+    }
+    static set todayStats(obj) {
+        localStorage.todayStats = JSON.stringify(obj);
+    }
+    static get allStats() {
         const allStatsRaw = localStorage.allStats;
         if (allStatsRaw) {
             const json = JSON.parse(allStatsRaw);
@@ -13862,72 +13844,14 @@ class StatHelper {
         }
         return {};
     }
-    set allStats(obj) {
+    static set allStats(obj) {
         localStorage.allStats = JSON.stringify(obj);
     }
-    get todayStats() {
-        const todayStatsRaw = localStorage.todayStats;
-        if (todayStatsRaw) {
-            const json = JSON.parse(todayStatsRaw);
-            if (typeof json == 'object') {
-                return json;
-            }
-        }
-        return { date: Utils.dateStamp(), stats: {} };
-    }
-    set todayStats(obj) {
-        localStorage.todayStats = JSON.stringify(obj);
+    set onStatChanged(callback) {
+        this.onStatChangedCallbacks.push(callback);
     }
 }
-
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__(379);
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/styleDomAPI.js
-var styleDomAPI = __webpack_require__(795);
-var styleDomAPI_default = /*#__PURE__*/__webpack_require__.n(styleDomAPI);
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/insertBySelector.js
-var insertBySelector = __webpack_require__(569);
-var insertBySelector_default = /*#__PURE__*/__webpack_require__.n(insertBySelector);
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js
-var setAttributesWithoutAttributes = __webpack_require__(565);
-var setAttributesWithoutAttributes_default = /*#__PURE__*/__webpack_require__.n(setAttributesWithoutAttributes);
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/insertStyleElement.js
-var insertStyleElement = __webpack_require__(216);
-var insertStyleElement_default = /*#__PURE__*/__webpack_require__.n(insertStyleElement);
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/styleTagTransform.js
-var styleTagTransform = __webpack_require__(589);
-var styleTagTransform_default = /*#__PURE__*/__webpack_require__.n(styleTagTransform);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/styles/styles.scss
-var styles = __webpack_require__(137);
-;// CONCATENATED MODULE: ./src/styles/styles.scss
-
-      
-      
-      
-      
-      
-      
-      
-      
-      
-
-var options = {};
-
-options.styleTagTransform = (styleTagTransform_default());
-options.setAttributes = (setAttributesWithoutAttributes_default());
-
-      options.insert = insertBySelector_default().bind(null, "head");
-    
-options.domAPI = (styleDomAPI_default());
-options.insertStyleElement = (insertStyleElement_default());
-
-var update = injectStylesIntoStyleTag_default()(styles/* default */.Z, options);
-
-
-
-
-       /* harmony default export */ const styles_styles = (styles/* default */.Z && styles/* default.locals */.Z.locals ? styles/* default.locals */.Z.locals : undefined);
+StatHelper.NUM_TARGET_RECORDS = 60;
 
 ;// CONCATENATED MODULE: ./node_modules/chart.js/dist/chunks/helpers.segment.js
 /*!
@@ -26995,117 +26919,219 @@ Chart.register(...registerables);
 
 /* harmony default export */ const auto_esm = (Chart);
 
+;// CONCATENATED MODULE: ./src/Stats.ts
+const IDX_TIME = 0;
+const IDX_AVERAGE_FONT_SIZE = 1;
+// const sample: TodayStats = {
+//   date: '2021-12-05',
+//   times: {
+//     '1638508380148': 3,
+//     '1638508380248': 6,
+//   },
+//   scores: [5, 6, 7, 6, 5],
+// };
+// const sample2: AllStats = {
+//   '2021-12-03': [10, 5.5],
+//   '2021-12-04': [4, 5.4],
+// };
+// console.log(sample, sample2);
+
+;// CONCATENATED MODULE: ./src/ChartHelper.ts
+
+
+
+
+class ChartHelper {
+    constructor($chartSession, $chartAll, allStats, todayStats) {
+        this.chartSession = new auto_esm($chartSession, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [
+                    {
+                        label: 'Average Font Size',
+                        backgroundColor: ChartHelper.RED,
+                        borderColor: ChartHelper.RED,
+                        data: [],
+                    },
+                ],
+            },
+            options: {
+                aspectRatio: 1.5,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'This session',
+                    },
+                },
+            },
+        });
+        this.chartAll = new auto_esm($chartAll, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [
+                    {
+                        label: 'Average Font Size',
+                        backgroundColor: ChartHelper.RED,
+                        borderColor: ChartHelper.RED,
+                        data: [],
+                        yAxisID: 'y',
+                    },
+                    {
+                        label: 'Playing Time',
+                        backgroundColor: ChartHelper.BLUE,
+                        borderColor: ChartHelper.BLUE,
+                        data: [],
+                        yAxisID: 'y1',
+                        fill: true,
+                    },
+                ],
+            },
+            options: {
+                aspectRatio: 1.5,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Recent days',
+                    },
+                },
+                scales: {
+                    y: {
+                        position: 'left',
+                        title: {
+                            display: true,
+                            text: 'mm',
+                        },
+                        min: TargetFactory.fontSizeMin,
+                    },
+                    y1: {
+                        position: 'right',
+                        title: {
+                            display: true,
+                            text: 'minutes',
+                        },
+                        min: 0,
+                    },
+                },
+            },
+        });
+        this.updateTodayChart(todayStats, allStats);
+    }
+    updateAllChart(stats) {
+        this.chartAll.data.labels = Object.keys(stats);
+        const values = Object.values(stats);
+        this.chartAll.data.datasets[0].data = values.map((v) => v[IDX_AVERAGE_FONT_SIZE]);
+        this.chartAll.data.datasets[1].data = values.map((v) => v[IDX_TIME]);
+        this.chartAll.update();
+    }
+    updateTodayChart(today, all) {
+        this.chartSession.data.labels = Utils.range(today.scores.length);
+        this.chartSession.data.datasets[0].data = today.scores;
+        this.chartSession.update();
+        this.updateAllChart(all);
+    }
+}
+ChartHelper.RED = 'rgb(255, 99, 132)';
+ChartHelper.BLUE = 'rgb(99, 132, 255)';
+
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(379);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/styleDomAPI.js
+var styleDomAPI = __webpack_require__(795);
+var styleDomAPI_default = /*#__PURE__*/__webpack_require__.n(styleDomAPI);
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/insertBySelector.js
+var insertBySelector = __webpack_require__(569);
+var insertBySelector_default = /*#__PURE__*/__webpack_require__.n(insertBySelector);
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js
+var setAttributesWithoutAttributes = __webpack_require__(565);
+var setAttributesWithoutAttributes_default = /*#__PURE__*/__webpack_require__.n(setAttributesWithoutAttributes);
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/insertStyleElement.js
+var insertStyleElement = __webpack_require__(216);
+var insertStyleElement_default = /*#__PURE__*/__webpack_require__.n(insertStyleElement);
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/styleTagTransform.js
+var styleTagTransform = __webpack_require__(589);
+var styleTagTransform_default = /*#__PURE__*/__webpack_require__.n(styleTagTransform);
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/styles/styles.scss
+var styles = __webpack_require__(137);
+;// CONCATENATED MODULE: ./src/styles/styles.scss
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+var options = {};
+
+options.styleTagTransform = (styleTagTransform_default());
+options.setAttributes = (setAttributesWithoutAttributes_default());
+
+      options.insert = insertBySelector_default().bind(null, "head");
+    
+options.domAPI = (styleDomAPI_default());
+options.insertStyleElement = (insertStyleElement_default());
+
+var update = injectStylesIntoStyleTag_default()(styles/* default */.Z, options);
+
+
+
+
+       /* harmony default export */ const styles_styles = (styles/* default */.Z && styles/* default.locals */.Z.locals ? styles/* default.locals */.Z.locals : undefined);
+
 ;// CONCATENATED MODULE: ./src/index.ts
 
 
 
 
-const src_Cookies = __webpack_require__(646);
 
-const $board = document.querySelector('#board');
-const $canvas = document.querySelector('#canvas');
-const $input = document.querySelector('#input');
-const $health = document.querySelector('#health');
-const $healthAverage = (document.querySelector('#health-average'));
-const $notification = document.querySelector('#notification');
-const $checkKorean = document.querySelector('#check-korean');
-const $buttonStats = document.querySelector('#button-stats');
-const $stats = document.querySelector('#stats');
-const opticTyping = new OpticTyping($board, $canvas, $input, $health, $notification, $healthAverage, $checkKorean);
-const RED = 'rgb(255, 99, 132)', BLUE = 'rgb(99, 132, 255)';
-const chartSession = new auto_esm(document.getElementById('chart-session'), {
-    type: 'line',
-    data: {
-        labels: [],
-        datasets: [
-            {
-                label: 'Average Font Size',
-                backgroundColor: RED,
-                borderColor: RED,
-                data: [],
-            },
-        ],
-    },
-    options: {
-        aspectRatio: 1.5,
-        plugins: {
-            title: {
-                display: true,
-                text: 'This session',
-            },
-        },
-    },
-}), chartRecent = new auto_esm(document.getElementById('chart-recent'), {
-    type: 'line',
-    data: {
-        labels: [],
-        datasets: [
-            {
-                label: 'Average Font Size',
-                backgroundColor: RED,
-                borderColor: RED,
-                data: [],
-                yAxisID: 'y',
-            },
-            {
-                label: 'Playing Time',
-                backgroundColor: BLUE,
-                borderColor: BLUE,
-                data: [],
-                yAxisID: 'y1',
-                fill: true,
-            },
-        ],
-    },
-    options: {
-        aspectRatio: 1.5,
-        scales: {
-            y: {
-                position: 'left',
-                title: {
-                    display: true,
-                    text: 'mm',
-                },
-                min: opticTyping.targetFactory.fontSizeMin,
-            },
-            y1: {
-                position: 'right',
-                title: {
-                    display: true,
-                    text: 'minutes',
-                },
-                min: 0,
-            },
-        },
-    },
-});
-opticTyping.onHit = () => {
-    var _a, _b, _c, _d;
-    if (opticTyping.queueHealth.length > opticTyping.capacityQueue) {
-        (_b = (_a = chartSession.data) === null || _a === void 0 ? void 0 : _a.labels) === null || _b === void 0 ? void 0 : _b.shift();
-        chartSession.data.datasets[0].data.shift();
+const src_Cookies = __webpack_require__(646);
+class Index {
+    constructor() {
+        var _a;
+        // Find elements
+        this.$board = document.getElementById('board');
+        this.$canvas = document.getElementById('canvas');
+        this.$input = document.getElementById('input');
+        this.$health = document.getElementById('health');
+        this.$notification = (document.getElementById('notification'));
+        this.$checkKorean = (document.getElementById('check-korean'));
+        this.$buttonStats = (document.getElementById('button-stats'));
+        this.$stats = document.getElementById('stats');
+        // Construct
+        this.opticTyping = new OpticTyping(this.$board, this.$canvas, this.$input, this.$health, this.$notification, this.$checkKorean, (_a = Utils.average(StatHelper.todayStats.scores)) !== null && _a !== void 0 ? _a : 8);
+        this.statHelper = new StatHelper();
+        this.chartHelper = new ChartHelper(document.getElementById('chart-session'), document.getElementById('chart-recent'), StatHelper.allStats, StatHelper.todayStats);
+        // Register events
+        this.opticTyping.onHit = (fontSize) => {
+            this.statHelper.pushFontSize(fontSize);
+        };
+        this.statHelper.onStatChanged = (todayStats, allStats) => {
+            this.chartHelper.updateTodayChart(todayStats, allStats);
+        };
+        this.$buttonStats.addEventListener('click', () => {
+            this.$stats.classList.toggle('hidden');
+            this.$input.focus();
+        });
     }
-    (_d = (_c = chartSession.data) === null || _c === void 0 ? void 0 : _c.labels) === null || _d === void 0 ? void 0 : _d.push('');
-    chartSession.data.datasets[0].data.push(Utils.average(opticTyping.queueFontSize));
-    chartSession.update();
-    statHelper.storeStats();
-};
-if (src_Cookies.get('korean') == '1') {
-    $checkKorean.checked = true;
-    opticTyping.korean = true;
+    init() {
+        this.restoreSettings();
+        this.opticTyping.init();
+        this.$input.focus();
+    }
+    restoreSettings() {
+        if (src_Cookies.get('korean') == '1') {
+            this.$checkKorean.checked = true;
+            this.opticTyping.korean = true;
+        }
+    }
 }
-const statHelper = new StatHelper(opticTyping, chartRecent);
-$buttonStats.addEventListener('click', () => {
-    $stats.classList.toggle('hidden');
-    $input.focus();
-});
-const everyMinutesTimer = () => {
-    statHelper.storeStats();
-    setTimeout(everyMinutesTimer, Utils.minute);
-};
-setTimeout(everyMinutesTimer, Utils.minute);
-opticTyping.main();
-$input.focus();
+new Index().init();
 
 })();
 

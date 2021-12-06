@@ -5,17 +5,16 @@ import Utils from './Utils';
 const Cookies: any = require('js-cookie');
 
 export class OpticTyping {
-  public readonly capacityQueue = 30;
+  public static readonly capacityQueue = 30;
   public targetFactory: TargetFactory;
 
-  private readonly delay = 500;
-  private readonly maxTargetNum = 10;
+  private static readonly delay = 500;
+  private static readonly maxTargetNum = 10;
 
   private targets: { [key: string]: Target } = {};
-  private _queueHealth: number[] = [];
   private _queueFontSize: number[] = [];
   private timeStart = new Date();
-  private _onHit?: () => void;
+  private onHitCallbacks: ((fontSize: number) => void)[] = [];
 
   public constructor(
     private $board: HTMLElement,
@@ -23,41 +22,33 @@ export class OpticTyping {
     private $input: HTMLInputElement,
     private $health: HTMLElement,
     private $notification: HTMLElement,
-    private $healthAverage: HTMLElement,
-    private $checkKorean: HTMLInputElement
+    private $checkKorean: HTMLInputElement,
+    initFontsize: number = 8
   ) {
-    this.targetFactory = new TargetFactory();
+    this.targetFactory = new TargetFactory(initFontsize);
   }
 
   private addTargetRepeatedly() {
-    if (Object.keys(this.targets).length < this.maxTargetNum) {
+    if (Object.keys(this.targets).length < OpticTyping.maxTargetNum) {
       const target = this.targetFactory.newTarget(
         () => {
           // Statistics
-          if (this._queueHealth.length > this.capacityQueue) {
-            this._queueHealth.shift();
-            this._queueFontSize.shift();
-          }
-          this._queueHealth.push(this.targetFactory.health);
           this._queueFontSize.push(this.targetFactory.fontSize);
-          this.$healthAverage.style.width = `${
-            Utils.average(this._queueHealth) * 100
-          }%`;
 
           // Adjust the size of the target.
           delete this.targets[target.message];
           this.targetFactory.multiplyToFontSize(0.95);
-          this.$board.classList.toggle('wrong', false);
+          this.$board.classList.remove('wrong');
           this.$health.style.width = `${this.targetFactory.health * 100}%`;
 
-          if (this._onHit) {
-            this._onHit();
+          for (let cb of this.onHitCallbacks) {
+            cb(this.targetFactory.fontSize);
           }
         },
         () => {
           delete this.targets[target.message];
           this.targetFactory.multiplyToFontSize(1.01);
-          this.$board.classList.toggle('wrong', true);
+          this.$board.classList.add('wrong');
           this.$health.style.width = `${this.targetFactory.health * 100}%`;
         }
       );
@@ -67,14 +58,14 @@ export class OpticTyping {
 
     setTimeout(() => {
       this.addTargetRepeatedly();
-    }, this.delay);
+    }, OpticTyping.delay);
   }
 
   public set korean(korean: boolean) {
     this.targetFactory.korean = korean;
   }
 
-  public main() {
+  public init() {
     this.$canvas.addEventListener('click', (ev) => {
       this.$input.focus();
     });
@@ -130,10 +121,6 @@ export class OpticTyping {
     return this._queueFontSize;
   }
 
-  public get queueHealth() {
-    return this._queueHealth;
-  }
-
   public get sumFontSize() {
     return Utils.sum(this._queueFontSize);
   }
@@ -142,7 +129,7 @@ export class OpticTyping {
     return this._queueFontSize.length;
   }
 
-  public set onHit(callback: () => void) {
-    this._onHit = callback;
+  public set onHit(callback: (fontSize: number) => void) {
+    this.onHitCallbacks.push(callback);
   }
 }

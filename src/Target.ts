@@ -1,11 +1,13 @@
+import Utils from './Utils';
+
 export class Target {
   public $element: HTMLElement;
 
   private _message: string;
-  private readonly life: number = 10000;
+  private static readonly life: number = 10 * Utils.second;
 
   public constructor(
-    private word: string,
+    word: string,
     private fontSize: number,
     private onHit: () => void,
     private onMiss: () => void
@@ -31,7 +33,7 @@ export class Target {
       if (this.destroy()) {
         this.onMiss();
       }
-    }, this.life);
+    }, Target.life);
   }
 
   public get message() {
