@@ -27091,9 +27091,9 @@ var update = injectStylesIntoStyleTag_default()(styles/* default */.Z, options);
 
 
 const src_Cookies = __webpack_require__(646);
+
 class Index {
     constructor() {
-        var _a;
         // Find elements
         this.$board = document.getElementById('board');
         this.$canvas = document.getElementById('canvas');
@@ -27104,7 +27104,7 @@ class Index {
         this.$buttonStats = (document.getElementById('button-stats'));
         this.$stats = document.getElementById('stats');
         // Construct
-        this.opticTyping = new OpticTyping(this.$board, this.$canvas, this.$input, this.$health, this.$notification, this.$checkKorean, (_a = Utils.average(StatHelper.todayStats.scores)) !== null && _a !== void 0 ? _a : 8);
+        this.opticTyping = new OpticTyping(this.$board, this.$canvas, this.$input, this.$health, this.$notification, this.$checkKorean, this.averageFontSize);
         this.statHelper = new StatHelper();
         this.chartHelper = new ChartHelper(document.getElementById('chart-session'), document.getElementById('chart-recent'), StatHelper.allStats, StatHelper.todayStats);
         // Register events
@@ -27129,6 +27129,16 @@ class Index {
             this.$checkKorean.checked = true;
             this.opticTyping.korean = true;
         }
+    }
+    get averageFontSize() {
+        const allStats = StatHelper.allStats;
+        if (Object.keys(allStats).length === 0) {
+            return 8;
+        }
+        const averages = Object.values(StatHelper.allStats).map((ar) => {
+            return ar[IDX_AVERAGE_FONT_SIZE];
+        });
+        return Utils.average(averages);
     }
 }
 new Index().init();

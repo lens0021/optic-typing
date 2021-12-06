@@ -4,7 +4,7 @@ import { StatHelper } from './StatHelper';
 import { ChartHelper } from './ChartHelper';
 import './styles/styles.scss';
 const Cookies: any = require('js-cookie');
-import { AllStats, TodayStats } from './Stats';
+import { AllStats, IDX_AVERAGE_FONT_SIZE, TodayStats } from './Stats';
 
 class Index {
   private opticTyping: OpticTyping;
@@ -49,7 +49,7 @@ class Index {
       this.$health,
       this.$notification,
       this.$checkKorean,
-      Utils.average(StatHelper.todayStats.scores) ?? 8
+      this.averageFontSize
     );
     this.statHelper = new StatHelper();
     this.chartHelper = new ChartHelper(
@@ -87,6 +87,17 @@ class Index {
       this.$checkKorean.checked = true;
       this.opticTyping.korean = true;
     }
+  }
+
+  private get averageFontSize(): number {
+    const allStats = StatHelper.allStats;
+    if (Object.keys(allStats).length === 0) {
+      return 8;
+    }
+    const averages = Object.values(StatHelper.allStats).map((ar) => {
+      return ar[IDX_AVERAGE_FONT_SIZE];
+    });
+    return Utils.average(averages);
   }
 }
 
