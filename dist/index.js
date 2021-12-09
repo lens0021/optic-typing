@@ -5071,7 +5071,6 @@ exports.n = [
 '미화할',
 '민간',
 '민속',
-'민음사',
 '민족',
 '민족의',
 '민족의식을',
@@ -13108,7 +13107,6 @@ exports.n = [
 '현대는',
 '현대를',
 '현대문학',
-'현대문학사',
 '현대문학의',
 '현대인',
 '현대자동차',
@@ -27119,7 +27117,6 @@ class Index {
             this.chartHelper.addValueToTodayChart(fontSize);
         };
         this.statHelper.onStatChanged = (todayStats, allStats) => {
-            // this.chartHelper.updateTodayChart(todayStats, allStats);
             this.chartHelper.updateAllChart(allStats);
         };
         this.$buttonStats.addEventListener('click', () => {
