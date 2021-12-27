@@ -74,6 +74,13 @@ class Index {
       this.$stats.classList.toggle('hidden');
       this.$input.focus();
     });
+    document.addEventListener('keydown', (ev) => {
+      if (ev.key == 'Tab') {
+        this.$stats.classList.toggle('hidden');
+        this.$input.focus();
+        ev.preventDefault();
+      }
+    });
   }
 
   public init() {
